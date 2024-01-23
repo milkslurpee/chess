@@ -15,24 +15,31 @@ public class TestFactory {
     // Chess Functions
     // ------------------------------------------------------------------------------------------------------------------
     public static ChessBoard getNewBoard() {
-        return new ChessBoard();
+        return new Board();
     }
 
     public static ChessGame getNewGame() {
-        return new ChessGame();
+        return new Game();
     }
 
     public static ChessPiece getNewPiece(ChessGame.TeamColor pieceColor, ChessPiece.PieceType type) {
-        return new ChessPiece(pieceColor, type);
+        return switch (type) {
+            case KING -> new King(pieceColor);
+            case QUEEN -> new Queen(pieceColor);
+            case PAWN -> new Pawn(pieceColor);
+            case ROOK -> new Rook(pieceColor);
+            case BISHOP -> new Bishop(pieceColor);
+            case KNIGHT -> new Knight(pieceColor);
+        };
     }
 
     public static ChessPosition getNewPosition(int row, int col) {
-        return new ChessPosition(row, col);
+        return new Position(row, col);
     }
 
     public static ChessMove getNewMove(ChessPosition startPosition, ChessPosition endPosition,
                                        ChessPiece.PieceType promotionPiece) {
-        return new ChessMove(startPosition, endPosition, promotionPiece);
+        return new Move(startPosition, endPosition, promotionPiece);
     }
     // ------------------------------------------------------------------------------------------------------------------
 
