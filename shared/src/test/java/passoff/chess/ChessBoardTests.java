@@ -47,7 +47,37 @@ public class ChessBoardTests {
         var actualBoard = new ChessBoard();
         actualBoard.resetBoard();
 
+        printBoard(actualBoard);
+        System.out.println("\n\n");
+        printBoard(expectedBoard);
+
         Assertions.assertEquals(expectedBoard, actualBoard);
+    }
+
+    public void printBoard(ChessBoard board) {
+        for (int row = 8; row >= 1; row--) {
+            System.out.print(row + "   "); // Print the row number
+
+            for (int col = 1; col <= 8; col++) {
+                ChessPosition currentPosition = new ChessPosition(row, col);
+                ChessPiece piece = board.getPiece(currentPosition);
+
+                if (piece == null) {
+                    System.out.print(" - "); // Empty square
+                } else {
+                    // Use the appropriate piece symbol based on team color
+                    if (piece.getTeamColor() == ChessGame.TeamColor.WHITE) {
+                        System.out.print(" " + piece.getPieceType().getWhitePieceSymbol(piece.getPieceType()) + " ");
+                    } else {
+                        System.out.print(" " + piece.getPieceType().getBlackPieceSymbol(piece.getPieceType()) + " ");
+                    }
+                }
+            }
+
+            System.out.println();
+        }
+
+        System.out.println("\n     A  B  C  D  E  F  G  H\n\n\n"); // Print column labels
     }
 
 
