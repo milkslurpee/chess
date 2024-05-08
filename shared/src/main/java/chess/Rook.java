@@ -1,6 +1,9 @@
 package chess;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
-public class Rook {
+public class Rook extends ChessPiece{
     ChessGame.TeamColor teamColor;
     public Rook(ChessGame.TeamColor teamColor){
         this.teamColor = teamColor;
@@ -29,11 +32,11 @@ public class Rook {
             int newCol = column + direction[1];
 
             while(newRow > 0 && newRow < 9 && newCol > 0 && newCol < 9){
-                ChessPosition newPosition = new Position(newRow,newCol);
+                ChessPosition newPosition = new ChessPosition(newRow,newCol);
                 ChessPiece newPiece = board.getPiece(newPosition);
 
                 if(newPiece == null || newPiece.getTeamColor() != this.teamColor){
-                    validMoves.add(new Move(myPosition,newPosition));
+                    validMoves.add(new ChessMove(myPosition,newPosition));
                 }
 
                 if(newPiece != null){
