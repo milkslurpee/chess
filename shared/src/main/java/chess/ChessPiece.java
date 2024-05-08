@@ -1,6 +1,8 @@
 package chess;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Represents a single chess piece
@@ -9,8 +11,12 @@ import java.util.Collection;
  * signature of the existing methods.
  */
 public class ChessPiece {
+    ChessGame.TeamColor teamColor;
+    ChessPiece.PieceType pieceType;
 
     public ChessPiece(ChessGame.TeamColor pieceColor, ChessPiece.PieceType type) {
+        this.teamColor = pieceColor;
+        this.pieceType = type;
     }
 
     public ChessPiece() {
@@ -67,14 +73,26 @@ public class ChessPiece {
      * @return Which team this chess piece belongs to
      */
     public ChessGame.TeamColor getTeamColor() {
-        throw new RuntimeException("Not implemented");
+        return teamColor;
     }
 
     /**
      * @return which type of chess piece this piece is
      */
     public PieceType getPieceType() {
-        throw new RuntimeException("Not implemented");
+        if(pieceType == PieceType.KING)
+            return PieceType.KING;
+        if(pieceType == PieceType.QUEEN)
+            return PieceType.QUEEN;
+        if(pieceType == PieceType.BISHOP)
+            return PieceType.BISHOP;
+        if(pieceType == PieceType.KNIGHT)
+            return PieceType.KNIGHT;
+        if(pieceType == PieceType.ROOK)
+            return PieceType.ROOK;
+        if(pieceType == PieceType.PAWN)
+            return PieceType.PAWN;
+        else return null;
     }
 
     /**
@@ -85,6 +103,22 @@ public class ChessPiece {
      * @return Collection of valid moves
      */
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
-        throw new RuntimeException("Not implemented");
+        switch (pieceType) {
+            case KING:
+                return new King(teamColor).pieceMoves(board, myPosition);
+            case QUEEN:
+                return new Queen(teamColor).pieceMoves(board, myPosition);
+            case BISHOP:
+                return new Bishop(teamColor).pieceMoves(board, myPosition);
+            case KNIGHT:
+                return new Knight(teamColor).pieceMoves(board, myPosition);
+            case ROOK:
+                return new Rook(teamColor).pieceMoves(board, myPosition);
+            case PAWN:
+                return new Pawn(teamColor).pieceMoves(board, myPosition);
+            default:
+                throw new IllegalArgumentException("Unsupported piece type: " + pieceType);
+        }
     }
 }
+
