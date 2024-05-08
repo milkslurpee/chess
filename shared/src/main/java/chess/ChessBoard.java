@@ -43,17 +43,18 @@ public class ChessBoard {
      * (How the game of chess normally starts)
      */
     public void resetBoard() {
-        chessBoard[7][0] = new Rook(ChessGame.TeamColor.BLACK);
-        chessBoard[7][1] = new Knight(ChessGame.TeamColor.BLACK);
-        chessBoard[7][2] = new Bishop(ChessGame.TeamColor.BLACK);
-        chessBoard[7][3] = new Queen(ChessGame.TeamColor.BLACK);
-        chessBoard[7][4] = new King(ChessGame.TeamColor.BLACK);
-        chessBoard[7][5] = new Bishop(ChessGame.TeamColor.BLACK);
-        chessBoard[7][6] = new Knight(ChessGame.TeamColor.BLACK);
-        chessBoard[7][7] = new Rook(ChessGame.TeamColor.BLACK);
+
+        chessBoard[7][0] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.ROOK);
+        chessBoard[7][1] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.KNIGHT);
+        chessBoard[7][2] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.BISHOP);
+        chessBoard[7][3] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.QUEEN);
+        chessBoard[7][4] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.KING);
+        chessBoard[7][5] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.BISHOP);
+        chessBoard[7][6] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.KNIGHT);
+        chessBoard[7][7] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.ROOK);
 
         for(int i = 0; i < 8; i++){
-            chessBoard[6][i] = new Pawn(ChessGame.TeamColor.BLACK);
+            chessBoard[6][i] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.PAWN);
         }
 
         for(int i = 5; i > 1; i--){
@@ -63,17 +64,17 @@ public class ChessBoard {
         }
 
         for(int i = 0; i < 8; i++){
-            chessBoard[1][i] = new Pawn(ChessGame.TeamColor.WHITE);
+            chessBoard[1][i] = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.PAWN);
         }
 
-        chessBoard[0][0] = new Rook(ChessGame.TeamColor.WHITE);
-        chessBoard[0][1] = new Knight(ChessGame.TeamColor.WHITE);
-        chessBoard[0][2] = new Bishop(ChessGame.TeamColor.WHITE);
-        chessBoard[0][3] = new Queen(ChessGame.TeamColor.WHITE);
-        chessBoard[0][4] = new King(ChessGame.TeamColor.WHITE);
-        chessBoard[0][5] = new Bishop(ChessGame.TeamColor.WHITE);
-        chessBoard[0][6] = new Knight(ChessGame.TeamColor.WHITE);
-        chessBoard[0][7] = new Rook(ChessGame.TeamColor.WHITE);
+        chessBoard[0][0] = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.ROOK);
+        chessBoard[0][1] = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.KNIGHT);
+        chessBoard[0][2] = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.BISHOP);
+        chessBoard[0][3] = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.QUEEN);
+        chessBoard[0][4] = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.KING);
+        chessBoard[0][5] = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.BISHOP);
+        chessBoard[0][6] = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.KNIGHT);
+        chessBoard[0][7] = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.ROOK);
     }
 
     @Override
@@ -81,19 +82,12 @@ public class ChessBoard {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ChessBoard that = (ChessBoard) o;
-        return Objects.deepEquals(chessBoard, that.chessBoard);
+        return Arrays.deepEquals(chessBoard, that.chessBoard);
     }
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 8; col++) {
-                ChessPiece piece = chessBoard[row][col];
-                hash = Objects.hash(hash, piece == null ? 0 : piece.hashCode());
-            }
-        }
-        return hash;
+        return Arrays.deepHashCode(chessBoard);
     }
 
 }
