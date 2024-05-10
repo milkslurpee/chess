@@ -35,37 +35,38 @@ public class ChessPiece {
         ROOK,
         PAWN;
 
-        public String getWhitePieceSymbol(PieceType piece) {
-            if(piece == KING)
-                return "K";
-            if(piece == QUEEN)
-                return "Q";
-            if(piece == BISHOP)
-                return "B";
-            if(piece == KNIGHT)
-                return "N";
-            if(piece == ROOK)
-                return "R";
-            if(piece == PAWN)
-                return "P";
-            else return null;
-        }
-
-        public String getBlackPieceSymbol(PieceType piece) {
-            if(piece == KING)
-                return "k";
-            if(piece == QUEEN)
-                return "q";
-            if(piece == BISHOP)
-                return "b";
-            if(piece == KNIGHT)
-                return "n";
-            if(piece == ROOK)
-                return "r";
-            if(piece == PAWN)
-                return "p";
-            else return null;
-        }
+//        public String getWhitePieceSymbol(PieceType piece) {
+//            if(piece == KING)
+//                return "K";
+//            if(piece == QUEEN)
+//                return "Q";
+//            if(piece == BISHOP)
+//                return "B";
+//            if(piece == KNIGHT)
+//                return "N";
+//            if(piece == ROOK)
+//                return "R";
+//            if(piece == PAWN)
+//                return "P";
+//            else return null;
+//        }
+//
+//        public String getBlackPieceSymbol(PieceType piece) {
+//            if(piece == KING)
+//                return "k";
+//            if(piece == QUEEN)
+//                return "q";
+//            if(piece == BISHOP)
+//                return "b";
+//            if(piece == KNIGHT)
+//                return "n";
+//            if(piece == ROOK)
+//                return "r";
+//            if(piece == PAWN)
+//                return "p";
+//            else return null;
+//        }
+// NOT NEEDED FOR PHASE 0
     }
 
 
