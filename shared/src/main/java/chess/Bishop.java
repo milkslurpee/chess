@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Bishop extends ChessPiece{
-    //hello
+    //hello beans
 
     public Bishop(ChessGame.TeamColor teamColor){
         this.teamColor = teamColor;
