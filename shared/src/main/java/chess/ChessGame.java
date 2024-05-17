@@ -53,10 +53,10 @@ public class ChessGame {
      * startPosition
      */
     public Collection<ChessMove> validMoves(ChessPosition startPosition) {
-        if (board.getPiece(startPosition) == null) {
-            return null;
-        }
+
         ChessPiece piece = board.getPiece(startPosition);
+        if (piece == null) return null;
+
         Collection<ChessMove> potentialMoves = piece.pieceMoves(board, startPosition);
         Set<ChessMove> validMoves = new HashSet<>();
         TeamColor currentTeamColor = piece.getTeamColor();
@@ -89,6 +89,11 @@ public class ChessGame {
 
     public void makeMove(ChessMove move) throws InvalidMoveException {
         ChessPiece tempPiece = null;
+
+        if (move == null || board == null) {
+            throw new InvalidMoveException("Invalid move");
+        }
+
         Collection<ChessMove> validMoves = validMoves(move.getStartPosition());
 
         if (getTeamTurn() != board.getPiece(move.getStartPosition()).getTeamColor()) {
@@ -99,22 +104,16 @@ public class ChessGame {
             throw new InvalidMoveException("Invalid move");
         }
         else {
-            if(move.getPromotionPiece() == ChessPiece.PieceType.ROOK) {
-                System.out.println("promotion to rook");
-                board.addPiece(move.getEndPosition(), new Rook(teamColor));
+            if (move.getEndPosition().getRow() == 1 || move.getEndPosition().getRow() == 8) {
+                if (piece != null && piece.getPieceType() == ChessPiece.PieceType.PAWN) {
+                    if (move.getPromotionPiece() != null) {
+                        ChessPiece newpiece = new ChessPiece(teamColor, move.promotionPiece);
+                        // Replace the pawn with the new piece type
+                        board.addPiece(move.getEndPosition(), newpiece);
+                    }
+                }
             }
-            else if(move.getPromotionPiece() == ChessPiece.PieceType.QUEEN) {
-                System.out.println("promotion to queen");
-                board.addPiece(move.getEndPosition(), new Queen(teamColor));
-            }
-            else if(move.getPromotionPiece() == ChessPiece.PieceType.BISHOP) {
-                System.out.println("promotion to bishop");
-                board.addPiece(move.getEndPosition(), new Bishop(teamColor));
-            }
-            else if(move.getPromotionPiece() == ChessPiece.PieceType.KNIGHT) {
-                System.out.println("promotion to knight");
-                board.addPiece(move.getEndPosition(), new Knight(teamColor));
-            } else{
+            else{
                 if(board.getPiece(move.getEndPosition()) != null){
                     tempPiece = board.getPiece(move.getEndPosition());
                 }
