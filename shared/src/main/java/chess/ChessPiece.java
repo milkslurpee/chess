@@ -35,37 +35,37 @@ public class ChessPiece {
         ROOK,
         PAWN;
 
-//        public String getWhitePieceSymbol(PieceType piece) {
-//            if(piece == KING)
-//                return "K";
-//            if(piece == QUEEN)
-//                return "Q";
-//            if(piece == BISHOP)
-//                return "B";
-//            if(piece == KNIGHT)
-//                return "N";
-//            if(piece == ROOK)
-//                return "R";
-//            if(piece == PAWN)
-//                return "P";
-//            else return null;
-//        }
-//
-//        public String getBlackPieceSymbol(PieceType piece) {
-//            if(piece == KING)
-//                return "k";
-//            if(piece == QUEEN)
-//                return "q";
-//            if(piece == BISHOP)
-//                return "b";
-//            if(piece == KNIGHT)
-//                return "n";
-//            if(piece == ROOK)
-//                return "r";
-//            if(piece == PAWN)
-//                return "p";
-//            else return null;
-//        }
+        public String getWhitePieceSymbol(PieceType piece) {
+            if(piece == KING)
+                return "K";
+            if(piece == QUEEN)
+                return "Q";
+            if(piece == BISHOP)
+                return "B";
+            if(piece == KNIGHT)
+                return "N";
+            if(piece == ROOK)
+                return "R";
+            if(piece == PAWN)
+                return "P";
+            else return null;
+        }
+
+        public String getBlackPieceSymbol(PieceType piece) {
+            if(piece == KING)
+                return "k";
+            if(piece == QUEEN)
+                return "q";
+            if(piece == BISHOP)
+                return "b";
+            if(piece == KNIGHT)
+                return "n";
+            if(piece == ROOK)
+                return "r";
+            if(piece == PAWN)
+                return "p";
+            else return null;
+        }
 // NOT NEEDED FOR PHASE 0
     }
 
@@ -82,19 +82,7 @@ public class ChessPiece {
      * @return which type of chess piece this piece is
      */
     public PieceType getPieceType() {
-        if(pieceType == PieceType.KING)
-            return PieceType.KING;
-        if(pieceType == PieceType.QUEEN)
-            return PieceType.QUEEN;
-        if(pieceType == PieceType.BISHOP)
-            return PieceType.BISHOP;
-        if(pieceType == PieceType.KNIGHT)
-            return PieceType.KNIGHT;
-        if(pieceType == PieceType.ROOK)
-            return PieceType.ROOK;
-        if(pieceType == PieceType.PAWN)
-            return PieceType.PAWN;
-        else return null;
+        return pieceType;
     }
 
     /**

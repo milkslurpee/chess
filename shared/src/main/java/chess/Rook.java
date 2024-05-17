@@ -4,22 +4,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Rook extends ChessPiece{
-    ChessGame.TeamColor teamColor;
-    public Rook(ChessGame.TeamColor teamColor){
-        this.teamColor = teamColor;
-    }
 
-    @Override
-    public ChessGame.TeamColor getTeamColor() {
-        return teamColor;
-    }
+    public Rook(ChessGame.TeamColor teamColor){this.teamColor = teamColor;}
 
-    @Override
-    public PieceType getPieceType() {
-        return PieceType.ROOK;
-    }
 
-    @Override
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
         Set<ChessMove> validMoves = new HashSet<>();
         int row = myPosition.getRow();

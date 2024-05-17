@@ -13,6 +13,10 @@ public class ChessBoard {
 
     private final ChessPiece[][] chessBoard = new ChessPiece[8][8];
 
+    public ChessBoard() {
+
+    }
+
     /**
      * Adds a chess piece to the chessboard
      *
