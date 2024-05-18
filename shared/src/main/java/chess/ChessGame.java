@@ -1,7 +1,5 @@
 package chess;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import java.util.Collection;
 
@@ -15,8 +13,22 @@ public class ChessGame {
     private TeamColor teamColor;
     private ChessBoard board;
 
+
     public ChessGame() {
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ChessGame chessGame = (ChessGame) o;
+        return teamColor == chessGame.teamColor && Objects.equals(board, chessGame.board);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(teamColor, board);
     }
 
     /**
@@ -166,11 +178,13 @@ public class ChessGame {
         for (int row = 1; row <= 8; row++) {
             for (int col = 1; col <= 8; col++) {
                 ChessPosition currentPosition = new ChessPosition(row, col);
-                ChessPiece piece = board.getPiece(currentPosition);
+                if(this.board != null) {
+                    ChessPiece piece = board.getPiece(currentPosition);
 
-                if (piece != null && piece.getTeamColor() == teamColor
-                        && piece.getPieceType() == ChessPiece.PieceType.KING) {
-                    return currentPosition; // Found the allied King
+                    if (piece != null && piece.getTeamColor() == teamColor
+                            && piece.getPieceType() == ChessPiece.PieceType.KING) {
+                        return currentPosition; // Found the allied King
+                    }
                 }
             }
         }
