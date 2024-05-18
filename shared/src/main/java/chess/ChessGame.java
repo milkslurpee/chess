@@ -15,7 +15,9 @@ public class ChessGame {
 
 
     public ChessGame() {
-
+        this.board = new ChessBoard();
+        this.board.resetBoard();
+        this.teamColor = TeamColor.WHITE;
     }
 
     @Override
@@ -34,9 +36,14 @@ public class ChessGame {
     /**
      * @return Which team's turn it is
      */
-// NOT NEEDED FOR PHASE 0
+
     public TeamColor getTeamTurn() {
-        return teamColor;
+        if(board != null)
+            return teamColor;
+        else {
+            teamColor = TeamColor.WHITE;
+            return teamColor;
+        }
     }
 
     /**
@@ -102,7 +109,7 @@ public class ChessGame {
     public void makeMove(ChessMove move) throws InvalidMoveException {
         ChessPiece tempPiece = null;
 
-        if (move == null || board == null) {
+        if (board.getPiece(move.getStartPosition()) == null || board == null ) {
             throw new InvalidMoveException("Invalid move");
         }
 
@@ -157,8 +164,12 @@ public class ChessGame {
             return false; // King not found
         }
 
-        TeamColor opponentTeam = (teamColor == TeamColor.WHITE) ? TeamColor.BLACK : TeamColor.WHITE;
-        Collection<ChessPosition> enemyPieceLocations = enemyPieces();
+        TeamColor opponentTeam;
+        if (teamColor == TeamColor.WHITE)
+                opponentTeam = TeamColor.BLACK;
+        else opponentTeam = TeamColor.WHITE;
+
+        Collection<ChessPosition> enemyPieceLocations = enemyPieces(opponentTeam);
 
         for (ChessPosition enemyPosition : enemyPieceLocations) {
             ChessPiece enemyPiece = getBoard().getPiece(enemyPosition);
@@ -192,9 +203,8 @@ public class ChessGame {
     }
 
 
-    public Set<ChessPosition> enemyPieces() {
+    public Set<ChessPosition> enemyPieces(TeamColor opponentTeam) {
         Set<ChessPosition> enemyPieceLocations = new HashSet<>();
-        TeamColor currentTeamColor = getTeamTurn();
 
         // Iterate through the entire board
         for (int row = 1; row <= 8; row++) {
@@ -202,7 +212,7 @@ public class ChessGame {
                 ChessPosition currentPosition = new ChessPosition(row, col);
                 ChessPiece piece = board.getPiece(currentPosition);
 
-                if (piece != null && piece.getTeamColor() != currentTeamColor) {
+                if (piece != null && piece.getTeamColor() == opponentTeam) {
                     enemyPieceLocations.add(currentPosition);
                 }
             }
@@ -318,7 +328,14 @@ public class ChessGame {
      * @return the chessboard
      */
     public ChessBoard getBoard() {
-        return board;
+        if(board != null)
+            return board;
+        else {
+            board = new ChessBoard();
+            board.resetBoard();
+            teamColor = TeamColor.WHITE;
+            return board;
+        }
     }
 
 
