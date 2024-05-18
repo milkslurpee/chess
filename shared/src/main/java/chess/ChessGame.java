@@ -20,30 +20,12 @@ public class ChessGame {
         this.teamColor = TeamColor.WHITE;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ChessGame chessGame = (ChessGame) o;
-        return teamColor == chessGame.teamColor && Objects.equals(board, chessGame.board);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(teamColor, board);
-    }
-
     /**
      * @return Which team's turn it is
      */
 
     public TeamColor getTeamTurn() {
-        if(board != null)
-            return teamColor;
-        else {
-            teamColor = TeamColor.WHITE;
-            return teamColor;
-        }
+        return teamColor;
     }
 
     /**
@@ -328,14 +310,7 @@ public class ChessGame {
      * @return the chessboard
      */
     public ChessBoard getBoard() {
-        if(board != null)
-            return board;
-        else {
-            board = new ChessBoard();
-            board.resetBoard();
-            teamColor = TeamColor.WHITE;
-            return board;
-        }
+        return board;
     }
 
 
