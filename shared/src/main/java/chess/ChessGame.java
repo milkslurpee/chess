@@ -104,15 +104,14 @@ public class ChessGame {
             throw new InvalidMoveException("Invalid move");
         }
         else {
-            if (move.getEndPosition().getRow() == 1 || move.getEndPosition().getRow() == 8) {
-                if (piece != null && piece.getPieceType() == ChessPiece.PieceType.PAWN) {
-                    if (move.getPromotionPiece() != null) {
-                        ChessPiece newpiece = new ChessPiece(teamColor, move.promotionPiece);
-                        // Replace the pawn with the new piece type
-                        board.addPiece(move.getEndPosition(), newpiece);
-                    }
+            if ((move.getEndPosition().getRow() == 1 || move.getEndPosition().getRow() == 8) && (piece != null && piece.getPieceType() == ChessPiece.PieceType.PAWN))  {
+                if (move.getPromotionPiece() != null) {
+                    ChessPiece newPiece = new ChessPiece(teamColor, move.promotionPiece);
+                    // Replace the pawn with the new piece type
+                    board.addPiece(move.getEndPosition(), newPiece);
                 }
             }
+
             else{
                 if(board.getPiece(move.getEndPosition()) != null){
                     tempPiece = board.getPiece(move.getEndPosition());
