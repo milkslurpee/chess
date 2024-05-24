@@ -19,7 +19,6 @@ public class LoginHandler {
     }
 
     public String handleLogin(Request request, Response response) {
-        response.type("application/json");
 
         try {
             // Deserialize the JSON request to a LoginRequest object

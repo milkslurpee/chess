@@ -18,7 +18,7 @@ public class RegisterHandler {
     }
 
     public String handleRegister(Request request, Response response) {
-        response.type("application/json");
+
 
         try {
             String username = request.queryParams("username");
