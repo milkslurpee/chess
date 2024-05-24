@@ -5,6 +5,7 @@ import dataaccess.DataAccessException;
 import dataaccess.GameDAO;
 import dataaccess.UserDAO;
 import models.User;
+import requests.RegisterRequest;
 import responses.registerResponse;
 
 /**
@@ -26,8 +27,10 @@ public class RegisterService {
      * @param request The registration request containing the user's information.
      * @return A registerResponse indicating the success of the registration operation.
      */
-    public registerResponse register(String username, String password, String email) {
-        UserDAO userDAO = new UserDAO();
+    public registerResponse register(RegisterRequest request) {
+        String username = request.getUsername();
+        String password = request.getPassword();
+        String email = request.getEmail();
         try {
             User existingUser = userDAO.read(username);
             if (existingUser != null) {

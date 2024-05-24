@@ -27,14 +27,14 @@ public class JoinGameService {
      * @param request The request containing details for joining the game.
      * @return A joinGameResponse indicating the success of the joining operation.
      */
-    public joinGameResponse joinGame(JoinGameRequest request, String authoken) {
+    public joinGameResponse joinGame(JoinGameRequest request, String auth) {
 
         try {
             int gameID = request.getGameID();
             GameModel game = null;
             game = gameDAO.read(gameID);
             String username = request.getUserName();
-            Authtoken authToken = new Authtoken(username, authoken);
+            Authtoken authToken = new Authtoken(username, auth);
             ChessGame.TeamColor playerColor = request.getColor();
 
             if (game == null) {

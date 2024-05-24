@@ -1,6 +1,7 @@
 package handlers;
 
 import com.google.gson.Gson;
+import requests.JoinGameRequest;
 import requests.LoginRequest;
 import responses.loginResponse;
 import services.LoginService;
@@ -22,7 +23,7 @@ public class LoginHandler {
 
         try {
             // Deserialize the JSON request to a LoginRequest object
-            LoginRequest loginRequest = (LoginRequest)gson.fromJson(String.valueOf(request), LoginRequest.class);
+            LoginRequest loginRequest = gson.fromJson(request.body(), LoginRequest.class);
 
             // Perform the login service
             loginResponse loginResponse = loginService.login(loginRequest);

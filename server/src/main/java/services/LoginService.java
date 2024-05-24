@@ -35,7 +35,6 @@ public class LoginService {
         String password = loginRequest.getPassword();
 
         // Validate the user's credentials
-        UserDAO userDAO = new UserDAO();
         User user = null;
         try {
             user = userDAO.read(username);

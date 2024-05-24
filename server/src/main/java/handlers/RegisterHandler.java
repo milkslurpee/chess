@@ -1,6 +1,7 @@
 package handlers;
 
 import com.google.gson.Gson;
+import requests.RegisterRequest;
 import responses.registerResponse;
 import services.RegisterService;
 import spark.Request;
@@ -24,7 +25,9 @@ public class RegisterHandler {
             String password = request.queryParams("password");
             String email = request.queryParams("email");
 
-            registerResponse registerResponse = registerService.register(username, password, email);
+            RegisterRequest registerRequest = new RegisterRequest(username, password, email);
+
+            registerResponse registerResponse = registerService.register(registerRequest);
 
             if (registerResponse.isSuccess()) {
                 response.status(200);
