@@ -19,13 +19,25 @@ public class LoginHandler {
     }
 
     public String handleLogin(Request request, Response response) {
+        response.type("application/json");
 
-        try {
+
             // Deserialize the JSON request to a LoginRequest object
-            LoginRequest loginRequest = gson.fromJson(request.body(), LoginRequest.class);
+        LoginRequest loginRequest = gson.fromJson(request.body(), LoginRequest.class);
+
+
+        if (loginRequest.getUsername() == null || loginRequest.getPassword() == null) {
+            response.status(400);
+            return gson.toJson(new loginResponse(null,null,false, "Error: no username or password"));
+        }
 
             // Perform the login service
-            loginResponse loginResponse = loginService.login(loginRequest);
+        loginResponse loginResponse = loginService.login(loginRequest);
+
+        System.out.println(loginResponse.getUsername() + "\n" + loginResponse.getAuthToken() + "\n");
+        System.out.println(loginRequest.getUsername() + "\n" + loginRequest.getPassword());
+
+
 
             // Check login response and set status accordingly
             if (loginResponse.isSuccess()) {
@@ -33,11 +45,8 @@ public class LoginHandler {
                 return gson.toJson(loginResponse);
             } else {
                 response.status(401);
-                return gson.toJson(new loginResponse(null,null,false, "Error: unauthorized"));
+                return gson.toJson(new loginResponse(null,null,false, "Error: beans unauthorized"));
             }
-        } catch (Exception e) {
-            response.status(500);
-            return gson.toJson(new loginResponse(null,null,false, "Error: description"));
-        }
+
     }
 }

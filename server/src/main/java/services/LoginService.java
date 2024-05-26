@@ -38,10 +38,10 @@ public class LoginService {
         User user = null;
         try {
             user = userDAO.read(username);
+            System.out.println("User found: " + user);
         } catch (DataAccessException e) {
-
-            System.out.println("User doesn't exist");
-            return new loginResponse(null, null,false, "User doesn't exist");
+            System.out.println("beans User doesn't exist");
+            return new loginResponse(null, null, false, "User doesn't exist");
         }
 
         if (user != null && user.getPassword().equals(password)) {
@@ -52,11 +52,13 @@ public class LoginService {
             } catch (DataAccessException e) {
                 throw new RuntimeException(e);
             }
-            return new loginResponse(username, authToken,true, "Login successful");
+            return new loginResponse(username, authToken, true, "Login successful");
         } else {
-            return new loginResponse(null, null,false, "Invalid username or password");
+            System.out.println("Invalid username or password");
+            return new loginResponse(null, null, false, "Invalid username or password");
         }
     }
+
 
     public String generateAuthToken(){
         return UUID.randomUUID().toString();

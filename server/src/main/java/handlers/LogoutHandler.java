@@ -17,7 +17,7 @@ public class LogoutHandler {
     }
 
     public String handleLogout(Request request, Response response) {
-
+        response.type("application/json");
 
         try {
             String authToken = request.headers("authorization");

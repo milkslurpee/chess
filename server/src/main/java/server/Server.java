@@ -11,15 +11,18 @@ import com.google.gson.Gson;
 import spark.*;
 
 public class Server {
+    AuthDAO authDAO = new AuthDAO();
+    UserDAO userDAO = new UserDAO();
+    GameDAO gameDAO = new GameDAO();
 
     public int run(int desiredPort) {
-        AuthDAO authDAO = new AuthDAO();
-        UserDAO userDAO = new UserDAO();
-        GameDAO gameDAO = new GameDAO();
 
         Spark.port(desiredPort);
+
         Gson gson = new Gson();
+
         Spark.staticFiles.location("web");
+
         Spark.delete("/db", new ClearDbHandler(new ClearService(authDAO, userDAO, gameDAO), gson)::handleClear);
         Spark.post("/user", new RegisterHandler(new RegisterService(authDAO, userDAO, gameDAO), gson)::handleRegister);
         Spark.post("/session", new LoginHandler(new LoginService(authDAO, userDAO, gameDAO), gson)::handleLogin);

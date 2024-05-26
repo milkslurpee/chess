@@ -11,6 +11,9 @@ import java.util.Map;
 public class UserDAO {
 
     private Map<String, User> userMap;
+    public UserDAO() {
+        this.userMap = new HashMap<>(); // Instantiating the userMap
+    }
     /**
      * Reads a user based on their name.
      *
@@ -19,17 +22,13 @@ public class UserDAO {
      * @throws DataAccessException If there is an issue accessing the data.
      */
 
-    public UserDAO() {
-        this.userMap = new HashMap<>(); // Instantiating the userMap
-    }
-
     public User read(String name) throws DataAccessException {
-        if(!userMap.containsKey(name)){
-            throw new DataAccessException("User doesn't exist");
-        }
-        else{
+        System.out.println("Reading user: " + name);
+        if(userMap.containsKey(name)){
             return userMap.get(name);
+
         }
+        else throw new DataAccessException("User doesn't exist");
     }
 
     /**

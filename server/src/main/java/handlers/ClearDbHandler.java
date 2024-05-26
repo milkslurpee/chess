@@ -16,7 +16,7 @@ public class ClearDbHandler {
     }
 
     public Object handleClear(Request request, Response response) {
-
+        response.type("application/json");
         try {
             clearService.clear();
             response.status(200);

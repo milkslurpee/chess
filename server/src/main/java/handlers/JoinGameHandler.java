@@ -16,7 +16,7 @@ public class JoinGameHandler {
     }
 
     public Object handleJoin(Request request, Response response) {
-
+        response.type("application/json");
 
         JoinGameRequest joinGameRequest = gson.fromJson(request.body(), JoinGameRequest.class);
 

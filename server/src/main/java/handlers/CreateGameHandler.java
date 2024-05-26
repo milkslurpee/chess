@@ -17,7 +17,7 @@ public class CreateGameHandler {
     }
 
     public Object handleCreate(Request request, Response response) {
-
+        response.type("application/json");
 
         CreateGameRequest createGameRequest = gson.fromJson(request.body(), CreateGameRequest.class);
 

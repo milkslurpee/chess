@@ -17,7 +17,7 @@ public class ListGamesHandler {
     }
 
     public String handleList(Request request, Response response) {
-
+        response.type("application/json");
 
         // Check if the authorization header is present
         if (request.headers("authorization") == null) {
