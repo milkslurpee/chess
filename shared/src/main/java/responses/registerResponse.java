@@ -6,29 +6,33 @@ package responses;
  */
 public class registerResponse extends baseResponse {
     private String username;
-    private String email;
+    private String authToken;
+
     /**
      * Constructs a new registerResponse with the provided success status and message.
      *
      * @param success A boolean flag indicating the success status of the response.
      * @param message A message associated with the response.
      */
-    public registerResponse(boolean success, String message) {
+    public registerResponse(String username, String authToken, boolean success, String message) {
         super(success, message);
+        this.username = username;
+        this.authToken = authToken;
     }
+
     public String getUsername() {
         return username;
+    }
+
+    public String getAuthToken() {
+        return authToken;
     }
 
     public void setUsername(String username) {
         this.username = username;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setAuthToken(String authToken) {
+        this.authToken = authToken;
     }
 }
