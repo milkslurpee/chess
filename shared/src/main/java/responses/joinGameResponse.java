@@ -8,10 +8,9 @@ public class joinGameResponse extends baseResponse {
     /**
      * Constructs a new joinGameResponse with the provided success status and message.
      *
-     * @param success A boolean flag indicating the success status of the response.
      * @param message A message associated with the response.
      */
-    public joinGameResponse(boolean success, String message) {
-        super(success, message);
+    public joinGameResponse(String message) {
+        super(message);
     }
 }

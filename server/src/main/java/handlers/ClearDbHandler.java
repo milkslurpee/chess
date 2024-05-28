@@ -20,10 +20,10 @@ public class ClearDbHandler {
         try {
             clearService.clear();
             response.status(200);
-            return gson.toJson(new clearResponse(true, "Databases cleared successfully"));
+            return gson.toJson(new clearResponse(null));
         } catch (Exception e) {
             response.status(500);
-            return gson.toJson(new clearResponse(false, "Failed to clear the databases"));
+            return gson.toJson(new clearResponse("Failed to clear the databases"));
         }
     }
 }

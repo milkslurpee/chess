@@ -27,8 +27,8 @@ public class ListGameService {
         try {
             map = gameDAO.getGameMap();
         } catch (DataAccessException e) {
-            return new listResponse(false, "No games to list", null);
+            return new listResponse("No games to list", null);
         }
-        return new listResponse(true, "Games listed successfully", map);
+        return new listResponse("Games listed successfully", map);
     }
 }

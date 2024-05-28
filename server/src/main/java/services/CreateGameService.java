@@ -38,9 +38,9 @@ public class CreateGameService {
         try {
             GameDAO gameDAO = new GameDAO();
             gameDAO.insert(newGame);
-            return new createGameResponse(true, "Game created successfully");
+            return new createGameResponse(null);
         } catch (DataAccessException e) {
-            return new createGameResponse(false, "Failed to create the game");
+            return new createGameResponse("Failed to create the game");
         }
     }
 

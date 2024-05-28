@@ -2,8 +2,7 @@ package dataaccess;
 
 import models.Authtoken;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * The AuthDAO class provides data access methods for handling authentication tokens.
@@ -50,17 +49,29 @@ public class AuthDAO {
     /**
      * Deletes an authentication token based on its ID.
      *
-     * @param authtokenID The ID of the authentication token to be deleted.
+     * @param authtoken The ID of the authentication token to be deleted.
      * @throws DataAccessException If there is an issue accessing the data.
      */
-    public void delete(String authtokenID) throws DataAccessException {
-        if(!authMap.containsKey(authtokenID)){
+    public void delete(String authtoken) throws DataAccessException {
+        // Find the key by the authtoken value
+        String key = getKeyByAuthtoken(authMap, authtoken);
+
+        if (key == null) {
             throw new DataAccessException("Authtoken doesn't exist");
-        }
-        else {
-            authMap.remove(authtokenID);
+        } else {
+            authMap.remove(key);
         }
     }
+
+    private String getKeyByAuthtoken(Map<String, Authtoken> map, String authtoken) {
+        for (Map.Entry<String, Authtoken> entry : map.entrySet()) {
+            if (Objects.equals(authtoken, entry.getValue().getAuthToken())) {
+                return entry.getKey();
+            }
+        }
+        return null;
+    }
+
 
     /**
      * Clears all authentication tokens from the data store.

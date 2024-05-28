@@ -16,14 +16,14 @@ public class LogoutHandler {
         this.gson = gson;
     }
 
-    public String handleLogout(Request request, Response response) {
-        response.type("application/json");
+    public Object handleLogout(Request request, Response response) {
 
         try {
             String authToken = request.headers("authorization");
+            System.out.println(authToken);
             logoutResponse logoutResponse = logoutService.logout(authToken);
 
-            if (logoutResponse.isSuccess()) {
+            if (logoutResponse.getMessage() == null) {
                 response.status(200);
                 return gson.toJson(logoutResponse);
             } else {
@@ -32,7 +32,7 @@ public class LogoutHandler {
             }
         } catch (Exception e) {
             response.status(500);
-            return gson.toJson(new logoutResponse(false, "Error: description"));
+            return gson.toJson(new logoutResponse("Error: description"));
         }
     }
 }

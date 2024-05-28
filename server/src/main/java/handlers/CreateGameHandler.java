@@ -25,12 +25,12 @@ public class CreateGameHandler {
 
         createGameResponse gameResponse = createGameService.createGame(createGameRequest);
 
-        if (gameResponse.isSuccess()) {
+        if (gameResponse.getMessage() == null) {
             response.status(200);
-            return gson.toJson(new createGameResponse(true, "Game created Successfully"));
+            return gson.toJson(new createGameResponse("Game created Successfully"));
         } else {
             response.status(500);
-            return gson.toJson(new createGameResponse(false, "Game failed to initialize"));
+            return gson.toJson(new createGameResponse("Game failed to initialize"));
         }
     }
 }

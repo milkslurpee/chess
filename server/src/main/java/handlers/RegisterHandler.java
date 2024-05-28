@@ -18,7 +18,7 @@ public class RegisterHandler {
         this.gson = gson;
     }
 
-    public String handleRegister(Request request, Response response) {
+    public Object handleRegister(Request request, Response response) {
         response.type("application/json");
 
         try {
@@ -28,26 +28,27 @@ public class RegisterHandler {
             // Perform validation on the registerRequest
             if (registerRequest.getUsername() == null || registerRequest.getPassword() == null || registerRequest.getEmail() == null) {
                 response.status(400);
-                return gson.toJson(new registerResponse(null, null, false, "Error: bad request"));
+                return gson.toJson(new registerResponse(null, null, "Error: bad request"));
             }
 
             // Perform the register service
             registerResponse registerResponse = registerService.register(registerRequest);
 
             // Check the register response and set status accordingly
-            if (registerResponse.isSuccess()) {
+            if (registerResponse.getMessage() == null) {
                 response.status(200);
+                System.out.println(gson.toJson(registerResponse));
                 return gson.toJson(registerResponse);
             } else if (registerResponse.getMessage().equals("Username already taken")) {
                 response.status(403);
-                return gson.toJson(new registerResponse(null, null, false, "Error: already taken"));
+                return gson.toJson(new registerResponse(null, null, "Error: already taken"));
             } else {
                 response.status(500);
-                return gson.toJson(new registerResponse(null, null, false, "Error: " + registerResponse.getMessage()));
+                return gson.toJson(new registerResponse(null, null, "Error: " + registerResponse.getMessage()));
             }
         } catch (Exception e) {
             response.status(500);
-            return gson.toJson(new registerResponse(null, null, false, "Error: " + e.getMessage()));
+            return gson.toJson(new registerResponse(null, null, "Error: " + e.getMessage()));
         }
     }
 }

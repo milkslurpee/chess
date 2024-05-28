@@ -22,23 +22,23 @@ public class ListGamesHandler {
         // Check if the authorization header is present
         if (request.headers("authorization") == null) {
             response.status(401);
-            return gson.toJson(new listResponse(false,"Error: unauthorized", null));
+            return gson.toJson(new listResponse("Error: unauthorized", null));
         }
 
         try {
             // Call the list service
             listResponse gameListResponse = listGameService.list();
 
-            if (gameListResponse.isSuccess()) {
+            if (gameListResponse.getMessage() == null) {
                 response.status(200);
                 return gson.toJson(gameListResponse);
             } else {
                 response.status(500);
-                return gson.toJson(new listResponse(false, "Error: description", null));
+                return gson.toJson(new listResponse("Error: description", null));
             }
         } catch (Exception e) {
             response.status(500);
-            return gson.toJson(new listResponse(false, "Error: description", null));
+            return gson.toJson(new listResponse("Error: description", null));
         }
     }
 }

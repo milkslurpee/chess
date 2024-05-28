@@ -19,13 +19,12 @@ public class loginResponse extends baseResponse {
     /**
      * Constructs a new loginResponse with the provided username, authentication token, success status, and message.
      *
-     * @param userName The username associated with the login response.
+     * @param username The username associated with the login response.
      * @param authToken The authentication token associated with the login response.
-     * @param success A boolean flag indicating the success status of the response.
      * @param message A message associated with the response.
      */
-    public loginResponse(String username, String authToken, boolean success, String message) {
-        super(success, message);
+    public loginResponse(String username, String authToken, String message) {
+        super(message);
         this.username = username;
         this.authToken = authToken;
     }

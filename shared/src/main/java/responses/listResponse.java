@@ -12,11 +12,10 @@ public class listResponse extends baseResponse {
     /**
      * Constructs a new listResponse with the provided success status and message.
      *
-     * @param success A boolean flag indicating the success status of the response.
      * @param message A message associated with the response.
      */
-    public listResponse(boolean success, String message, Map<Integer, GameModel> map) {
-        super(success, message);
+    public listResponse(String message, Map<Integer, GameModel> map) {
+        super(message);
         this.gameMap = map;
     }
     public Map<Integer, GameModel> getGameMap() {

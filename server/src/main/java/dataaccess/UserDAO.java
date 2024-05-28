@@ -23,7 +23,7 @@ public class UserDAO {
      */
 
     public User read(String name) throws DataAccessException {
-        System.out.println("Reading user: " + name);
+        //System.out.println("Reading user: " + name);
         if(userMap.containsKey(name)){
             return userMap.get(name);
 

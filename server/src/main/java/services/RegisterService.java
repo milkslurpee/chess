@@ -39,12 +39,12 @@ public class RegisterService {
         try {
             // Check if the username already exists
             if (userDAO.read(username) != null) {
-                return new registerResponse(null, null, false, "Username already taken");
+                return new registerResponse(null, null, "Username already taken");
             }
         } catch (DataAccessException e) {
             // If the exception is thrown because the user does not exist, continue
             if (!e.getMessage().equals("User doesn't exist")) {
-                return new registerResponse(null, null, false, "Data access error: " + e.getMessage());
+                return new registerResponse(null, null, "Data access error: " + e.getMessage());
             }
         }
 
@@ -53,7 +53,7 @@ public class RegisterService {
         try {
             userDAO.insert(newUser);
         } catch (DataAccessException e) {
-            return new registerResponse(null, null, false, "Data access error: " + e.getMessage());
+            return new registerResponse(null, null, "Data access error: " + e.getMessage());
         }
 
         // Generate an auth token for the new user
@@ -61,10 +61,10 @@ public class RegisterService {
         try {
             authDAO.insert(new Authtoken(authToken, username));
         } catch (DataAccessException e) {
-            return new registerResponse(null, null, false, "Data access error: " + e.getMessage());
+            return new registerResponse(null, null, "Data access error: " + e.getMessage());
         }
 
-        return new registerResponse(username, authToken, true, "Registration successful");
+        return new registerResponse(username, authToken, null);
     }
 
     private String generateAuthToken() {

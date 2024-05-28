@@ -38,10 +38,10 @@ public class JoinGameService {
             ChessGame.TeamColor playerColor = request.getColor();
 
             if (game == null) {
-                 return new joinGameResponse(false, "Error: Game does not exist");
+                 return new joinGameResponse("Error: Game does not exist");
             }
             if(!authDAO.validToken(authToken)){
-                return new joinGameResponse(false, "Error: Unauthorized user");
+                return new joinGameResponse("Error: Unauthorized user");
             }
             if (game.getWhiteUsername() == null && playerColor == ChessGame.TeamColor.WHITE) {
                 game.setWhiteUsername(username);
@@ -57,15 +57,16 @@ public class JoinGameService {
                 } else if (game.getBlackUsername() == null) {
                     game.setBlackUsername(username); // The second observer takes the black side
                 }
-                return new joinGameResponse(true, "User joined as observer");
+                System.out.println("User joined as observer");
+                return new joinGameResponse(null);
             }
             else if(game.getWhiteUsername() != null && game.getBlackUsername() != null){
-                return new joinGameResponse(false, "Error: Game is full");
+                return new joinGameResponse("Error: Game is full");
             }
 
         } catch (DataAccessException e) {
             throw new RuntimeException(e);
         }
-        return new joinGameResponse(true, "Player joined successfully");
+        return new joinGameResponse(null);
     }
 }

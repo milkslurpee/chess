@@ -33,10 +33,10 @@ public class LoginService {
         User user = null;
         try {
             user = userDAO.read(username);
-            System.out.println("User found: " + user.getUsername());
+          //  System.out.println("User found: " + user.getUsername());
         } catch (DataAccessException e) {
-            System.out.println("User doesn't exist");
-            return new loginResponse(null, null, false, "User doesn't exist");
+           // System.out.println("User doesn't exist");
+            return new loginResponse(null, null, "User doesn't exist");
         }
 
         if (user.getPassword().equals(password)) {
@@ -47,11 +47,11 @@ public class LoginService {
             } catch (DataAccessException e) {
                 throw new RuntimeException(e);
             }
-            System.out.println("Successful login of user " + user.getUsername());
-            return new loginResponse(user.getUsername(), authToken, true, "Login successful");
+           // System.out.println("Successful login of user " + user.getUsername());
+            return new loginResponse(user.getUsername(), authToken, null);
         } else {
             System.out.println("Invalid username or password");
-            return new loginResponse(null, null, false, "Invalid username or password");
+            return new loginResponse(null, null, "Invalid username or password");
         }
     }
 

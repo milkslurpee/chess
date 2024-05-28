@@ -8,10 +8,9 @@ public class createGameResponse extends baseResponse {
     /**
      * Constructs a new createGameResponse with the provided success status and message.
      *
-     * @param success A boolean flag indicating the success status of the response.
      * @param message A message associated with the response.
      */
-    public createGameResponse(boolean success, String message) {
-        super(success, message);
+    public createGameResponse(String message) {
+        super(message);
     }
 }

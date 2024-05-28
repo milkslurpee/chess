@@ -24,7 +24,7 @@ public class JoinGameHandler {
 
         joinGameResponse joinGameResponse = joinGameService.joinGame(joinGameRequest, authToken);
 
-        if (joinGameResponse.isSuccess()) {
+        if (joinGameResponse.getMessage() == null) {
             response.status(200);
             return gson.toJson(joinGameResponse); // Success response
         } else {
