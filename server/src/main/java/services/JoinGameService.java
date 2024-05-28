@@ -40,7 +40,8 @@ public class JoinGameService {
             if (game == null) {
                  return new joinGameResponse("Error: Game does not exist");
             }
-            if(!authDAO.validToken(authToken)){
+            String token = authToken.getAuthToken();
+            if(!authDAO.validToken(token)){
                 return new joinGameResponse("Error: Unauthorized user");
             }
             if (game.getWhiteUsername() == null && playerColor == ChessGame.TeamColor.WHITE) {

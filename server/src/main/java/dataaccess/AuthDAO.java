@@ -38,8 +38,9 @@ public class AuthDAO {
      */
     public void insert(Authtoken authtoken) throws DataAccessException {
         String authtokenID = authtoken.getUserName();
-        if(authMap.containsKey(authtokenID)){
-            throw new DataAccessException("Authtoken already exists");
+        //System.out.println(authtokenID + " " + authtoken.getUserName());
+        if(!Objects.equals(authtoken.getUserName(), authtokenID)){
+            throw new DataAccessException("Authentification failed");
         }
         else {
             authMap.put(authtokenID, authtoken);
@@ -87,10 +88,7 @@ public class AuthDAO {
         }
     }
 
-    public boolean validToken(Authtoken authtoken){
-        String username = authtoken.getUserName();
-        String authToken = authtoken.getAuthToken();
-
-        return authMap.get(username) == authtoken;
+    public boolean validToken(String authtoken){
+        return authMap.containsKey(authtoken);
     }
 }

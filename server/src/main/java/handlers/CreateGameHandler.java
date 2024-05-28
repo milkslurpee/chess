@@ -19,18 +19,27 @@ public class CreateGameHandler {
     public Object handleCreate(Request request, Response response) {
         response.type("application/json");
 
-        CreateGameRequest createGameRequest = gson.fromJson(request.body(), CreateGameRequest.class);
-
         String authToken = request.headers("authorization");
 
-        createGameResponse gameResponse = createGameService.createGame(createGameRequest);
+        if (authToken == null || authToken.isEmpty()) {
+            response.status(401);
+            return gson.toJson(new createGameResponse("Error: unauthorized"));
+        }
+
+        CreateGameRequest createGameRequest = gson.fromJson(request.body(), CreateGameRequest.class);
+        createGameResponse gameResponse = createGameService.createGame(authToken, createGameRequest);
 
         if (gameResponse.getMessage() == null) {
             response.status(200);
-            return gson.toJson(new createGameResponse("Game created Successfully"));
+            return gson.toJson(gameResponse);
+        } else if (gameResponse.getMessage().equals("Error: unauthorized")) {
+            response.status(401);
+        } else if (gameResponse.getMessage().equals("Error: bad request")) {
+            response.status(400);
         } else {
             response.status(500);
-            return gson.toJson(new createGameResponse("Game failed to initialize"));
         }
+
+        return gson.toJson(gameResponse);
     }
 }
