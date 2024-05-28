@@ -3,6 +3,7 @@ package handlers;
 import com.google.gson.Gson;
 import dataaccess.*;
 import requests.JoinGameRequest;
+import responses.createGameResponse;
 import responses.joinGameResponse;
 import services.JoinGameService;
 import services.SerializeUtils;
@@ -12,21 +13,26 @@ import spark.Response;
 public class JoinGameHandler {
 
     private UserDAO usersDAO;
-    private AuthDAO authTokensDAO;
+    private AuthDAO authDAO;
     private GameDAO gameDAO;
     JoinGameService playerJoin = new JoinGameService();
 
     public JoinGameHandler(UserDAO users, AuthDAO authTokens, GameDAO games) {
         this.usersDAO = users;
-        this.authTokensDAO = authTokens;
+        this.authDAO = authTokens;
         this.gameDAO = games;
     }
 
     public Object handleJoin(Request request, Response response) throws Exception {
+
+        String token = request.headers("authorization");
+        if (!authDAO.validToken(token)) {
+            response.status(401);
+            return SerializeUtils.toJson(new joinGameResponse("Error: unauthorized"));
+        }
         try {
-            String token = request.headers("authorization");
             JoinGameRequest newReq = SerializeUtils.fromJson(request.body(), JoinGameRequest.class);
-            playerJoin.join(gameDAO, authTokensDAO, token, newReq);
+            playerJoin.join(gameDAO, authDAO, token, newReq);
             response.status(200);
             return "{}";
         }
