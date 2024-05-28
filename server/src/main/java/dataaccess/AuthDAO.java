@@ -10,6 +10,10 @@ import java.util.Map;
  */
 public class AuthDAO {
     private final Map<String, Authtoken> authMap;
+
+    public AuthDAO() {
+        this.authMap = new HashMap<>(); // Instantiating the userMap
+    }
     /**
      * Reads an authentication token based on its ID.
      *
@@ -17,10 +21,6 @@ public class AuthDAO {
      * @return The retrieved authentication token, or null if not found.
      * @throws DataAccessException If there is an issue accessing the data.
      */
-
-    public AuthDAO() {
-        this.authMap = new HashMap<>(); // Instantiating the userMap
-    }
 
     public Authtoken read(String authtokenID) throws DataAccessException {
         if(!authMap.containsKey(authtokenID)){

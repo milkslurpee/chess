@@ -21,32 +21,31 @@ public class LoginHandler {
     public String handleLogin(Request request, Response response) {
         response.type("application/json");
 
-
-            // Deserialize the JSON request to a LoginRequest object
+        // Deserialize the JSON request to a LoginRequest object
         LoginRequest loginRequest = gson.fromJson(request.body(), LoginRequest.class);
 
+        System.out.println("Received login request: " + loginRequest.getUsername() + " / " + loginRequest.getPassword());
 
         if (loginRequest.getUsername() == null || loginRequest.getPassword() == null) {
             response.status(400);
             return gson.toJson(new loginResponse(null,null,false, "Error: no username or password"));
         }
 
-            // Perform the login service
+        // Perform the login service
         loginResponse loginResponse = loginService.login(loginRequest);
 
-        System.out.println(loginResponse.getUsername() + "\n" + loginResponse.getAuthToken() + "\n");
-        System.out.println(loginRequest.getUsername() + "\n" + loginRequest.getPassword());
+        // Check login response and set status accordingly
+        if (loginResponse.isSuccess()) {
+            System.out.println("Login successful for user: " + loginResponse.getUsername());
+            response.status(200);
+            gson.toJson(loginResponse);
+            System.out.println("Returning JSON response: " + gson.toJson(loginResponse));
+            return gson.toJson(loginResponse);
 
-
-
-            // Check login response and set status accordingly
-            if (loginResponse.isSuccess()) {
-                response.status(200);
-                return gson.toJson(loginResponse);
-            } else {
-                response.status(401);
-                return gson.toJson(new loginResponse(null,null,false, "Error: beans unauthorized"));
-            }
-
+        } else {
+            System.out.println("Login failed: " + loginResponse.getMessage());
+            response.status(401);
+            return gson.toJson(new loginResponse(null,null,false, "Error: unauthorized"));
+        }
     }
 }

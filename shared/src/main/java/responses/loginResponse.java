@@ -9,7 +9,7 @@ public class loginResponse extends baseResponse {
     /**
      * The username associated with the login response.
      */
-    private String userName;
+    private String username;
 
     /**
      * The authentication token associated with the login response.
@@ -24,14 +24,14 @@ public class loginResponse extends baseResponse {
      * @param success A boolean flag indicating the success status of the response.
      * @param message A message associated with the response.
      */
-    public loginResponse(String userName, String authToken, boolean success, String message) {
+    public loginResponse(String username, String authToken, boolean success, String message) {
         super(success, message);
-        this.userName = userName;
+        this.username = username;
         this.authToken = authToken;
     }
 
     public String getUsername() {
-        return userName;
+        return username;
     }
 
     public String getAuthToken() {
@@ -39,7 +39,7 @@ public class loginResponse extends baseResponse {
     }
 
     public void setUsername(String userName) {
-        this.userName = userName;
+        this.username = userName;
     }
 
     public void setAuthToken(String authToken) {
