@@ -4,10 +4,6 @@ package responses;
  * The baseResponse class represents a basic response object with success status and a message.
  */
 public class baseResponse {
-    /**
-     * A boolean flag indicating the success status of the response.
-     */
-    private boolean success;
 
     /**
      * A message associated with the response.
