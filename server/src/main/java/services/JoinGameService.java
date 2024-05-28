@@ -28,7 +28,7 @@ public class JoinGameService {
      * @return A joinGameResponse indicating the success of the joining operation.
      */
     public void join(GameDAO games, AuthDAO authTokens, String authToken, JoinGameRequest request) throws DataAccessException {
-        GameModel gameToBeJoined;
+
         utils.verifyAuth(authTokens, authToken);
         games.read(request.gameID());
         gameToBeJoined = games.read(request.gameID());
@@ -52,7 +52,7 @@ public class JoinGameService {
             if (gameToBeJoined.getWhiteUsername() != null){
                 throw new DataAccessException("already taken");
             }
-            updatedGame = new GameModel(gameToBeJoined.getGameID(), newPlayer, gameToBeJoined.getBlackUsername(), gameToBeJoined.getGameName(), gameToBeJoined.getGame());
+            updatedGame = new GameModel(gameToBeJoined.getGameID(), newPlayer, gameToBeJoined.getBlackUsername(), gameToBeJoined.getBlackUsername(), gameToBeJoined.getGame());
         }
         else{
             if (gameToBeJoined.getBlackUsername() != null){

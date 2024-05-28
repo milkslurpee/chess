@@ -10,11 +10,11 @@ import java.util.Map;
  */
 public class GameDAO {
 
-    private Map<Integer, GameModel> gameMap;
+    private Map<Integer, GameModel> gameMap = new HashMap<>();
 
     public GameDAO() {
         // Initialize the gameMap in the constructor
-        this.gameMap = new HashMap<>();
+
     }
 
     /**
@@ -25,12 +25,11 @@ public class GameDAO {
      * @throws DataAccessException If there is an issue accessing the data.
      */
     public GameModel read(int gameID) throws DataAccessException {
-        if(!gameMap.containsKey(gameID)){
-            throw new DataAccessException("Game doesn't exist");
+        GameModel neededGame = gameMap.get(gameID);
+        if(neededGame == null){
+            throw new DataAccessException("bad request");
         }
-        else{
-            return gameMap.get(gameID);
-        }
+        return neededGame;
     }
 
     public void updateGame(int gameID, GameModel gameData) {
