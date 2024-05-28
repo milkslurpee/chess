@@ -24,21 +24,24 @@ public class ListGamesHandler {
             response.status(401);
             return gson.toJson(new listResponse("Error: unauthorized", null));
         }
-
+        listResponse gameListResponse = listGameService.list();
         try {
             // Call the list service
-            listResponse gameListResponse = listGameService.list();
 
             if (gameListResponse.getMessage() == null) {
                 response.status(200);
                 return gson.toJson(gameListResponse);
-            } else {
-                response.status(500);
-                return gson.toJson(new listResponse("Error: description", null));
+            } else if (gameListResponse.getMessage().equals("unauthorized")) {
+                response.status(403);
+                return gson.toJson(gameListResponse);
             }
         } catch (Exception e) {
             response.status(500);
             return gson.toJson(new listResponse("Error: description", null));
         }
+
+            response.status(200);
+            return gson.toJson(gameListResponse);
+
     }
 }
