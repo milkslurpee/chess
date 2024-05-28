@@ -67,12 +67,7 @@ public class UserDAO {
      *
      * @throws DataAccessException If there is an issue accessing the data.
      */
-    public void clear() throws DataAccessException {
-        if(userMap.isEmpty()){
-            throw new DataAccessException("There are no Users to clear");
-        }
-        else{
-            userMap.clear();
-        }
+    public void clear() {
+        userMap.clear();
     }
 }

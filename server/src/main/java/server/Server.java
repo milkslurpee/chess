@@ -29,7 +29,7 @@ public class Server {
         Spark.delete("/session", (request, response) -> new LogoutHandler(new LogoutService(authDAO, userDAO), gson).handleLogout(request, response));
         Spark.get("/game", (request, response) -> new ListGamesHandler(new ListGameService(gameDAO), gson).handleList(request, response));
         Spark.post("/game", (request, response) -> new CreateGameHandler(new CreateGameService(authDAO, userDAO, gameDAO), gson).handleCreate(request, response));
-        Spark.put("/game", (request, response) -> new JoinGameHandler(new JoinGameService(authDAO, userDAO, gameDAO), gson).handleJoin(request, response));
+        Spark.put("/game", (request, response) -> new JoinGameHandler(userDAO, authDAO, gameDAO).handleJoin(request, response));
 
         // Register your endpoints and handle exceptions here.
 

@@ -33,6 +33,10 @@ public class GameDAO {
         }
     }
 
+    public void updateGame(int gameID, GameModel gameData) {
+        gameMap.replace(gameID, gameData);
+    }
+
     /**
      * Inserts a GameModel into the data store.
      *
@@ -69,13 +73,8 @@ public class GameDAO {
      *
      * @throws DataAccessException If there is an issue accessing the data.
      */
-    public void clear() throws DataAccessException {
-        if(gameMap.isEmpty()){
-            throw new DataAccessException("There are no Games to clear");
-        }
-        else{
-            gameMap.clear();
-        }
+    public void clear() {
+        gameMap.clear();
     }
 
     public Map<Integer, GameModel> getGameMap() throws DataAccessException{

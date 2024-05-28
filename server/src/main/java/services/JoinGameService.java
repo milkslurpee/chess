@@ -8,6 +8,8 @@ import models.GameModel;
 import requests.JoinGameRequest;
 import responses.joinGameResponse;
 
+import java.util.Objects;
+
 /**
  * The JoinGameService class provides a service for joining an existing game.
  */
@@ -15,11 +17,9 @@ public class JoinGameService {
     AuthDAO authDAO;
     UserDAO userDAO;
     GameDAO gameDAO;
-    public JoinGameService(AuthDAO authDAO, UserDAO userDAO, GameDAO gameDAO) {
-        this.authDAO = authDAO;
-        this.gameDAO = gameDAO;
-        this.userDAO = userDAO;
-    }
+    ServiceUtils utils = new ServiceUtils();
+    GameModel gameToBeJoined;
+
 
     /**
      * Joins an existing game based on the provided request.
@@ -27,47 +27,39 @@ public class JoinGameService {
      * @param request The request containing details for joining the game.
      * @return A joinGameResponse indicating the success of the joining operation.
      */
-    public joinGameResponse joinGame(JoinGameRequest request, String auth) {
-
-        try {
-            int gameID = request.getGameID();
-            GameModel game = null;
-            game = gameDAO.read(gameID);
-            String username = request.getUserName();
-            Authtoken authToken = new Authtoken(username, auth);
-            ChessGame.TeamColor playerColor = request.getColor();
-
-            if (game == null) {
-                 return new joinGameResponse("Error: Game does not exist");
-            }
-            String token = authToken.getAuthToken();
-            if(!authDAO.validToken(token)){
-                return new joinGameResponse("Error: Unauthorized user");
-            }
-            if (game.getWhiteUsername() == null && playerColor == ChessGame.TeamColor.WHITE) {
-                game.setWhiteUsername(username);
-                gameDAO.insert(game);
-            }
-            else if (game.getBlackUsername() == null && playerColor == ChessGame.TeamColor.BLACK) {
-                game.setBlackUsername(username);
-                gameDAO.insert(game);
-            }
-            else if (playerColor == null) {
-                if (game.getWhiteUsername() == null) {
-                    game.setWhiteUsername(username); // The first observer takes the white side
-                } else if (game.getBlackUsername() == null) {
-                    game.setBlackUsername(username); // The second observer takes the black side
-                }
-                System.out.println("User joined as observer");
-                return new joinGameResponse(null);
-            }
-            else if(game.getWhiteUsername() != null && game.getBlackUsername() != null){
-                return new joinGameResponse("Error: Game is full");
-            }
-
-        } catch (DataAccessException e) {
-            throw new RuntimeException(e);
+    public void join(GameDAO games, AuthDAO authTokens, String authToken, JoinGameRequest request) throws DataAccessException {
+        GameModel gameToBeJoined;
+        utils.verifyAuth(authTokens, authToken);
+        games.read(request.gameID());
+        gameToBeJoined = games.read(request.gameID());
+        if (Objects.equals(request.gameID(), "0") || request.playerColor()==null){
+            throw new DataAccessException("bad request");
         }
-        return new joinGameResponse(null);
+        if(!(request.playerColor().equals("WHITE") || request.playerColor().equals("BLACK"))){
+            throw new DataAccessException("bad request");
+        }
+
+        Authtoken userJoingAuth = authTokens.read(authToken);
+        GameModel updatedGame = getUpdatedGame(request, userJoingAuth);
+        games.updateGame(gameToBeJoined.getGameID(), updatedGame);
+    }
+
+    private GameModel getUpdatedGame(JoinGameRequest request, Authtoken userJoingAuth) throws DataAccessException {
+        String newPlayer = userJoingAuth.getUserName();
+
+        GameModel updatedGame;
+        if(request.playerColor().equals("WHITE")){
+            if (gameToBeJoined.getWhiteUsername() != null){
+                throw new DataAccessException("already taken");
+            }
+            updatedGame = new GameModel(gameToBeJoined.getGameID(), newPlayer, gameToBeJoined.getBlackUsername(), gameToBeJoined.getGameName(), gameToBeJoined.getGame());
+        }
+        else{
+            if (gameToBeJoined.getBlackUsername() != null){
+                throw new DataAccessException("already taken");
+            }
+            updatedGame = new GameModel(gameToBeJoined.getGameID(), gameToBeJoined.getWhiteUsername(), newPlayer, gameToBeJoined.getGameName(), gameToBeJoined.getGame());
+        }
+        return updatedGame;
     }
 }

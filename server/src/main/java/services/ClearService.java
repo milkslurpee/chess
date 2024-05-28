@@ -20,12 +20,8 @@ public class ClearService {
      * Clears data or performs a specific operation.
      */
     public void clear() {
-        try {
             authDAO.clear();
             gameDAO.clear();
             userDAO.clear();
-        } catch (DataAccessException e) {
-            throw new RuntimeException(e);
-        }
     }
 }

@@ -37,9 +37,9 @@ public class AuthDAO {
      * @throws DataAccessException If there is an issue accessing the data.
      */
     public void insert(Authtoken authtoken) throws DataAccessException {
-        String authtokenID = authtoken.getUserName();
+        String authtokenID = authtoken.getAuthToken();
         //System.out.println(authtokenID + " " + authtoken.getUserName());
-        if(!Objects.equals(authtoken.getUserName(), authtokenID)){
+        if(!Objects.equals(authtoken.getAuthToken(), authtokenID)){
             throw new DataAccessException("Authentification failed");
         }
         else {
@@ -79,13 +79,8 @@ public class AuthDAO {
      *
      * @throws DataAccessException If there is an issue accessing the data.
      */
-    public void clear() throws DataAccessException {
-        if(authMap.isEmpty()){
-            throw new DataAccessException("No Authtokens to clear");
-        }
-        else {
-            authMap.clear();
-        }
+    public void clear() {
+        authMap.clear();
     }
 
     public boolean validToken(String authtoken){
