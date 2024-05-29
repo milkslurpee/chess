@@ -11,8 +11,8 @@ import java.util.UUID;
 
 public class ServiceUtils {
 
-    public void verifyAuth(AuthDAO authDB, String token) throws DataAccessException {
-        authDB.read(token);
+    public void verifyAuth(AuthDAO authDAO, String token) throws DataAccessException {
+        authDAO.read(token);
     }
 
 }
