@@ -5,14 +5,14 @@ import com.google.gson.JsonSyntaxException;
 
 public class SerializeUtils {
 
-    private static final Gson gson = new Gson();
+    private static final Gson GSON = new Gson();
 
     public static <T> T fromJson(String json, Class<T> classToBeDeserialized) throws JsonSyntaxException {
-        return gson.fromJson(json, classToBeDeserialized);
+        return GSON.fromJson(json, classToBeDeserialized);
     }
 
     public static String toJson(Object object) {
-        return gson.toJson(object);
+        return GSON.toJson(object);
     }
 
 

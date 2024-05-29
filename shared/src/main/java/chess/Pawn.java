@@ -7,8 +7,8 @@ import java.util.Set;
 public class Pawn extends ChessPiece {
 
 
-    public Pawn(ChessGame.TeamColor TeamColor) {
-        this.teamColor = TeamColor;
+    public Pawn(ChessGame.TeamColor teamColor) {
+        this.teamColor = teamColor;
     }
 
     @Override

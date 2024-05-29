@@ -4,7 +4,7 @@ import chess.ChessGame;
 import dataaccess.*;
 import models.GameModel;
 import requests.CreateGameRequest;
-import responses.createGameResponse;
+import responses.CreateGameResponse;
 
 /**
  * The CreateGameService class provides a service for creating a new game.
@@ -28,14 +28,14 @@ public class CreateGameService {
      * @param request   The request containing details for creating the game.
      * @return A createGameResponse indicating the success of the creation operation.
      */
-    public createGameResponse createGame(String authToken, CreateGameRequest request) {
+    public CreateGameResponse createGame(String authToken, CreateGameRequest request) {
         if (!authDAO.validToken(authToken)) {
-            return new createGameResponse("Error: unauthorized");
+            return new CreateGameResponse("Error: unauthorized");
         }
 
         String gameName = request.getGameName();
         if (gameName == null || gameName.isEmpty()) {
-            return new createGameResponse("Error: bad request");
+            return new CreateGameResponse("Error: bad request");
         }
 
         int newGameID = generateUniqueGameID();
@@ -44,9 +44,9 @@ public class CreateGameService {
 
         try {
             gameDAO.insert(newGame);
-            return new createGameResponse(newGameID);
+            return new CreateGameResponse(newGameID);
         } catch (DataAccessException e) {
-            return new createGameResponse("Error: failed to create the game");
+            return new CreateGameResponse("Error: failed to create the game");
         }
     }
 

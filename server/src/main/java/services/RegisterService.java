@@ -7,7 +7,7 @@ import dataaccess.UserDAO;
 import models.Authtoken;
 import models.User;
 import requests.RegisterRequest;
-import responses.registerResponse;
+import responses.RegisterResponse;
 
 import java.util.UUID;
 
@@ -31,7 +31,7 @@ public class RegisterService {
      * @return A registerResponse indicating the success of the registration operation.
      */
 
-    public registerResponse register(RegisterRequest request) {
+    public RegisterResponse register(RegisterRequest request) {
         String username = request.getUsername();
         String password = request.getPassword();
         String email = request.getEmail();
@@ -39,12 +39,12 @@ public class RegisterService {
         try {
             // Check if the username already exists
             if (userDAO.read(username) != null) {
-                return new registerResponse(null, null, "Username already taken");
+                return new RegisterResponse(null, null, "Username already taken");
             }
         } catch (DataAccessException e) {
             // If the exception is thrown because the user does not exist, continue
             if (!e.getMessage().equals("User doesn't exist")) {
-                return new registerResponse(null, null, "Data access error: " + e.getMessage());
+                return new RegisterResponse(null, null, "Data access error: " + e.getMessage());
             }
         }
 
@@ -53,7 +53,7 @@ public class RegisterService {
         try {
             userDAO.insert(newUser);
         } catch (DataAccessException e) {
-            return new registerResponse(null, null, "Data access error: " + e.getMessage());
+            return new RegisterResponse(null, null, "Data access error: " + e.getMessage());
         }
 
         // Generate an auth token for the new user
@@ -61,10 +61,10 @@ public class RegisterService {
         try {
             authDAO.insert(new Authtoken(authToken, username));
         } catch (DataAccessException e) {
-            return new registerResponse(null, null, "Data access error: " + e.getMessage());
+            return new RegisterResponse(null, null, "Data access error: " + e.getMessage());
         }
 
-        return new registerResponse(username, authToken, null);
+        return new RegisterResponse(username, authToken, null);
     }
 
     private String generateAuthToken() {

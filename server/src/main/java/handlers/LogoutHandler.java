@@ -1,7 +1,7 @@
 package handlers;
 
 import com.google.gson.Gson;
-import responses.logoutResponse;
+import responses.LogoutResponse;
 import services.LogoutService;
 import spark.Request;
 import spark.Response;
@@ -21,7 +21,7 @@ public class LogoutHandler {
         try {
             String authToken = request.headers("authorization");
             System.out.println(authToken);
-            logoutResponse logoutResponse = logoutService.logout(authToken);
+            LogoutResponse logoutResponse = logoutService.logout(authToken);
 
             if (logoutResponse.getMessage() == null) {
                 response.status(200);
@@ -32,7 +32,7 @@ public class LogoutHandler {
             }
         } catch (Exception e) {
             response.status(500);
-            return gson.toJson(new logoutResponse("Error: description"));
+            return gson.toJson(new LogoutResponse("Error: description"));
         }
     }
 }

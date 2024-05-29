@@ -1,9 +1,8 @@
 package services;
 import dataaccess.AuthDAO;
 import dataaccess.DataAccessException;
-import dataaccess.GameDAO;
 import dataaccess.UserDAO;
-import responses.logoutResponse;
+import responses.LogoutResponse;
 
 /**
  * The LogoutService class provides a service for user logout.
@@ -22,13 +21,13 @@ public class LogoutService {
      *
      * @return A logoutResponse indicating the success of the logout operation.
      */
-    public logoutResponse logout(String authToken) {
+    public LogoutResponse logout(String authToken) {
         System.out.println(authToken);
         try {
             authDAO.delete(authToken);
-            return new logoutResponse(null);
+            return new LogoutResponse(null);
         } catch (DataAccessException e) {
-            return new logoutResponse("Error: Failed to logout");
+            return new LogoutResponse("Error: Failed to logout");
         }
     }
 }

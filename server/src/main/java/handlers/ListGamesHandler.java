@@ -2,7 +2,7 @@ package handlers;
 
 import com.google.gson.Gson;
 import dataaccess.AuthDAO;
-import responses.listResponse;
+import responses.ListResponse;
 import services.ListGameService;
 import spark.Request;
 import spark.Response;
@@ -24,9 +24,9 @@ public class ListGamesHandler {
         // Check if the authorization header is present
         if (authToken == null || !authDAO.validToken(authToken)) {
             response.status(401);
-            return gson.toJson(new listResponse("Error: unauthorized", null));
+            return gson.toJson(new ListResponse("Error: unauthorized", null));
         }
-        listResponse gameListResponse = listGameService.list();
+        ListResponse gameListResponse = listGameService.list();
         try {
             // Call the list service
 
@@ -40,7 +40,7 @@ public class ListGamesHandler {
             }
         } catch (Exception e) {
             response.status(500);
-            return gson.toJson(new listResponse("Error: description", null));
+            return gson.toJson(new ListResponse("Error: description", null));
         }
 
             response.status(200);

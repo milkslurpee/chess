@@ -2,7 +2,7 @@ package handlers;
 
 import com.google.gson.Gson;
 import requests.CreateGameRequest;
-import responses.createGameResponse;
+import responses.CreateGameResponse;
 import services.CreateGameService;
 import spark.Request;
 import spark.Response;
@@ -23,11 +23,11 @@ public class CreateGameHandler {
 
         if (authToken == null || authToken.isEmpty()) {
             response.status(401);
-            return gson.toJson(new createGameResponse("Error: unauthorized"));
+            return gson.toJson(new CreateGameResponse("Error: unauthorized"));
         }
 
         CreateGameRequest createGameRequest = gson.fromJson(request.body(), CreateGameRequest.class);
-        createGameResponse gameResponse = createGameService.createGame(authToken, createGameRequest);
+        CreateGameResponse gameResponse = createGameService.createGame(authToken, createGameRequest);
 
         if (gameResponse.getMessage() == null) {
             response.status(200);

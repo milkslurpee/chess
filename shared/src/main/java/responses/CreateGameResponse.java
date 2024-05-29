@@ -1,15 +1,15 @@
 package responses;
 
-public class createGameResponse {
+public class CreateGameResponse {
     private Integer gameID;
     private String message;
 
-    public createGameResponse(Integer gameID) {
+    public CreateGameResponse(Integer gameID) {
         this.gameID = gameID;
         this.message = null;
     }
 
-    public createGameResponse(String message) {
+    public CreateGameResponse(String message) {
         this.message = message;
         this.gameID = null;
     }

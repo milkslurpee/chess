@@ -1,13 +1,9 @@
 package services;
-import dataaccess.AuthDAO;
-import dataaccess.DataAccessException;
 import dataaccess.GameDAO;
-import dataaccess.UserDAO;
 import models.GameModel;
-import responses.listResponse;
+import responses.ListResponse;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * The ListGameService class creates a service for listing all the games.
@@ -23,9 +19,9 @@ public class ListGameService {
      *
      * @return A listResponse indicating the success of the listing operation.
      */
-    public listResponse list() {
+    public ListResponse list() {
         List<GameModel> GameList;
         GameList = gameDAO.getGameList();
-        return new listResponse(null, GameList);
+        return new ListResponse(null, GameList);
     }
 }

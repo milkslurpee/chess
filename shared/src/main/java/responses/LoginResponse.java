@@ -4,7 +4,7 @@ package responses;
  * The loginResponse class represents a response for a login operation with user information, success status, and a message.
  * It is a subclass of the baseResponse class.
  */
-public class loginResponse extends BaseResponse {
+public class LoginResponse extends BaseResponse {
 
     /**
      * The username associated with the login response.
@@ -23,7 +23,7 @@ public class loginResponse extends BaseResponse {
      * @param authToken The authentication token associated with the login response.
      * @param message A message associated with the response.
      */
-    public loginResponse(String username, String authToken, String message) {
+    public LoginResponse(String username, String authToken, String message) {
         super(message);
         this.username = username;
         this.authToken = authToken;

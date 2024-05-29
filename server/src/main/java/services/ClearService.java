@@ -1,7 +1,6 @@
 package services;
 
 import dataaccess.*;
-import responses.clearResponse;
 
 /**
  * The ClearService class provides a service for clearing data or operations.

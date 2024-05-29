@@ -3,11 +3,8 @@ package ServiceTests;
 import chess.ChessGame;
 import org.junit.jupiter.api.*;
 import dataaccess.*;
-import handlers.*;
 import requests.CreateGameRequest;
-import requests.RegisterRequest;
-import responses.createGameResponse;
-import responses.registerResponse;
+import responses.CreateGameResponse;
 import services.*;
 import models.*;
 
@@ -55,7 +52,7 @@ public class ServiceUnitTests {
      //   GameModel game = new GameModel(123, "beans", "rice", "partysauce", chessGame);
         CreateGameRequest request = new CreateGameRequest("partysauce");
         // Calling the createGame method
-        createGameResponse response = createGameService.createGame(authtoken.getAuthToken(), request);
+        CreateGameResponse response = createGameService.createGame(authtoken.getAuthToken(), request);
 
         // Verifying the response
         assertNull(response.getMessage());
@@ -71,7 +68,7 @@ public class ServiceUnitTests {
 
         CreateGameRequest request = new CreateGameRequest("partysauce");
         // Calling the createGame method
-        createGameResponse response = createGameService.createGame(authtoken.getAuthToken(), request);
+        CreateGameResponse response = createGameService.createGame(authtoken.getAuthToken(), request);
 
         // Verifying the response
         assertNotNull(response.getMessage());

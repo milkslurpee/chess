@@ -1,12 +1,10 @@
 package services;
 
-import chess.ChessGame;
 import dataaccess.*;
 import dataaccess.DataAccessException;
 import models.Authtoken;
 import models.GameModel;
 import requests.JoinGameRequest;
-import responses.joinGameResponse;
 
 import java.util.Objects;
 

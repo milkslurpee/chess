@@ -1,9 +1,8 @@
 package handlers;
 
 import com.google.gson.Gson;
-import requests.JoinGameRequest;
 import requests.LoginRequest;
-import responses.loginResponse;
+import responses.LoginResponse;
 import services.LoginService;
 import spark.Request;
 import spark.Response;
@@ -28,11 +27,11 @@ public class LoginHandler {
 
         if (loginRequest.getUsername() == null || loginRequest.getPassword() == null) {
             response.status(400);
-            return gson.toJson(new loginResponse(null,null,"Error: no username or password"));
+            return gson.toJson(new LoginResponse(null,null,"Error: no username or password"));
         }
 
         // Perform the login service
-        loginResponse loginResponse = loginService.login(loginRequest);
+        LoginResponse loginResponse = loginService.login(loginRequest);
 
         // Check login response and set status accordingly
         if (loginResponse.getMessage() == null) {
@@ -45,7 +44,7 @@ public class LoginHandler {
         } else {
             //System.out.println("Login failed: " + loginResponse.getMessage());
             response.status(401);
-            return gson.toJson(new loginResponse(null,null,"Error: unauthorized"));
+            return gson.toJson(new LoginResponse(null,null,"Error: unauthorized"));
         }
     }
 }

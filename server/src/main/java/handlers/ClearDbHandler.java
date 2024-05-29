@@ -1,7 +1,7 @@
 package handlers;
 
 import com.google.gson.Gson;
-import responses.clearResponse;
+import responses.ClearResponse;
 import services.ClearService;
 import spark.Request;
 import spark.Response;
@@ -20,10 +20,10 @@ public class ClearDbHandler {
         try {
             clearService.clear();
             response.status(200);
-            return gson.toJson(new clearResponse(null));
+            return gson.toJson(new ClearResponse(null));
         } catch (Exception e) {
             response.status(500);
-            return gson.toJson(new clearResponse("Failed to clear the databases"));
+            return gson.toJson(new ClearResponse("Failed to clear the databases"));
         }
     }
 }

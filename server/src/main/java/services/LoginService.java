@@ -7,7 +7,7 @@ import dataaccess.UserDAO;
 import models.Authtoken;
 import models.User;
 import requests.LoginRequest;
-import responses.loginResponse;
+import responses.LoginResponse;
 
 import java.util.UUID;
 
@@ -25,7 +25,7 @@ public class LoginService {
         this.userDAO = userDAO;
     }
 
-    public loginResponse login(LoginRequest loginRequest) {
+    public LoginResponse login(LoginRequest loginRequest) {
         String username = loginRequest.getUsername();
         String password = loginRequest.getPassword();
 
@@ -36,7 +36,7 @@ public class LoginService {
           //  System.out.println("User found: " + user.getUsername());
         } catch (DataAccessException e) {
            // System.out.println("User doesn't exist");
-            return new loginResponse(null, null, "User doesn't exist");
+            return new LoginResponse(null, null, "User doesn't exist");
         }
 
         if (user.getPassword().equals(password)) {
@@ -48,10 +48,10 @@ public class LoginService {
                 throw new RuntimeException(e);
             }
            // System.out.println("Successful login of user " + user.getUsername());
-            return new loginResponse(user.getUsername(), authToken, null);
+            return new LoginResponse(user.getUsername(), authToken, null);
         } else {
             System.out.println("Invalid username or password");
-            return new loginResponse(null, null, "Invalid username or password");
+            return new LoginResponse(null, null, "Invalid username or password");
         }
     }
 
