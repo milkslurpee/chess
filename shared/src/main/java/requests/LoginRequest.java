@@ -36,7 +36,4 @@ public class LoginRequest {
     public void setUsername(String username) {
         this.username = username;
     }
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }

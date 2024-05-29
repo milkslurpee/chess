@@ -32,12 +32,4 @@ public class Authtoken {
     public String getUserName() {
         return userName;
     }
-
-    public void setAuthToken(String authToken) {
-        this.authToken = authToken;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
 }

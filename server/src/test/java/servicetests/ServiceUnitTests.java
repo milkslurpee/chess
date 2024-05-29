@@ -74,39 +74,6 @@ public class ServiceUnitTests {
         assertNotNull(response.getMessage());
     }
 
-//    @Test
-//    @Order(4)
-//    public void registerSuccess() throws DataAccessException {
-//        RegisterRequest request = new RegisterRequest("newUser", "password", "email@example.com");
-//        registerResponse response = RegisterService.register(request);
-//
-//        // Verifying the response
-//        assertNull(response.getMessage());
-//        assertNotNull(response.getUsername());
-//        assertNotNull(response.getAuthToken());
-//
-//        // Verifying the user is in the userDAO
-//        User user = userDAO.read("newUser");
-//        assertNotNull(user);
-//        assertEquals("newUser", user.getUsername());
-//    }
-//
-//    @Test
-//    @Order(5)
-//    public void registerFailure_UsernameTaken() throws DataAccessException {
-//        // First, register a user with the username "existingUser"
-//        User existingUser = new User("existingUser", "password", "email@example.com");
-//        userDAO.insert(existingUser);
-//
-//        // Attempt to register another user with the same username
-//        RegisterRequest request = new RegisterRequest("existingUser", "password", "newemail@example.com");
-//        registerResponse response = RegisterService.register(request);
-//
-//        // Verifying the response
-//        assertNotNull(response.getMessage());
-//        assertEquals("Username already taken", response.getMessage());
-//        assertNull(response.getUsername());
-//        assertNull(response.getAuthToken());
-//    }
+
 
 }

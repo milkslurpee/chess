@@ -68,22 +68,6 @@ public class GameModel {
         return game;
     }
 
-    public void setGameID(int gameID) {
-        this.gameID = gameID;
-    }
-
-    public void setWhiteUsername(String whiteUsername) {
-        this.whiteUsername = whiteUsername;
-    }
-
-    public void setBlackUsername(String blackUsername) {
-        this.blackUsername = blackUsername;
-    }
-
-    public void setGameName(String gameName) {
-        this.gameName = gameName;
-    }
-
     public void setGame(ChessGame game) {
         this.game = game;
     }
