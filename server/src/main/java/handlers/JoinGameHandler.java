@@ -14,7 +14,7 @@ public class JoinGameHandler {
     private AuthDAO authDAO;
     private GameDAO gameDAO;
     JoinGameService playerJoin = new JoinGameService();
-    Gson GSON = new Gson();
+    Gson gson = new Gson();
 
     public JoinGameHandler(UserDAO users, AuthDAO authTokens, GameDAO games) {
         this.usersDAO = users;
@@ -27,10 +27,10 @@ public class JoinGameHandler {
         String token = request.headers("authorization");
         if (!authDAO.validToken(token)) {
             response.status(401);
-            return GSON.toJson(new JoinGameResponse("Error: unauthorized"));
+            return gson.toJson(new JoinGameResponse("Error: unauthorized"));
         }
         try {
-            JoinGameRequest newReq = GSON.fromJson(request.body(), JoinGameRequest.class);
+            JoinGameRequest newReq = gson.fromJson(request.body(), JoinGameRequest.class);
             playerJoin.join(gameDAO, authDAO, token, newReq);
             response.status(200);
             return "{}";
@@ -48,7 +48,7 @@ public class JoinGameHandler {
             else {
                 response.status(500);
             }
-            return GSON.toJson(new JoinGameResponse("Error: " + e.getMessage()));
+            return gson.toJson(new JoinGameResponse("Error: " + e.getMessage()));
 
         }
     }}
