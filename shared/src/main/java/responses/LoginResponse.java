@@ -37,11 +37,4 @@ public class LoginResponse extends BaseResponse {
         return authToken;
     }
 
-    public void setUsername(String userName) {
-        this.username = userName;
-    }
-
-    public void setAuthToken(String authToken) {
-        this.authToken = authToken;
-    }
 }

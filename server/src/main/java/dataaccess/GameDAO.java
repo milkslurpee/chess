@@ -60,14 +60,6 @@ public class GameDAO {
      * @param gameID The ID of the game to be deleted.
      * @throws DataAccessException If there is an issue accessing the data.
      */
-    public void delete(int gameID) throws DataAccessException {
-        if(!gameMap.containsKey(gameID)){
-            throw new DataAccessException("Game doesn't exist");
-        }
-        else{
-            gameMap.remove(gameID);
-        }
-    }
 
     /**
      * Clears all game data from the data store.
@@ -78,14 +70,6 @@ public class GameDAO {
         gameMap.clear();
     }
 
-    public Map<Integer, GameModel> getGameMap() throws DataAccessException{
-        if(!gameMap.isEmpty()) {
-            return gameMap;
-        }
-        else{
-            throw new DataAccessException("There are no Games to list");
-        }
-    }
 
     public List<GameModel> getGameList() {
         List<GameModel> listOfGames = new ArrayList<>();

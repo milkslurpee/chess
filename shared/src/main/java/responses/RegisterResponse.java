@@ -26,12 +26,4 @@ public class RegisterResponse extends BaseResponse {
     public String getAuthToken() {
         return authToken;
     }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setAuthToken(String authToken) {
-        this.authToken = authToken;
-    }
 }

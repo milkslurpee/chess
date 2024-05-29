@@ -13,25 +13,8 @@ public class ServiceUtils {
     private List<Integer> usedNumbers = new ArrayList<>();
     private int max = 100;
 
-    public String makeToken(){
-        return UUID.randomUUID().toString();
-    }
-
     public void verifyAuth(AuthDAO authDB, String token) throws DataAccessException {
         authDB.read(token);
-    }
-
-    public String newID(){
-        Random randNumber = new Random();
-        int newNumber = randNumber.nextInt(max);
-        for(int number : usedNumbers){
-            if(number == newNumber){
-                newNumber=Integer.parseInt(newID());
-                max*=2;
-            }
-        }
-        usedNumbers.add(newNumber);
-        return Integer.toString(newNumber);
     }
 
 }
