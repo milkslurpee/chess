@@ -1,6 +1,8 @@
 package responses;
 
 import models.GameModel;
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -8,20 +10,17 @@ import java.util.Map;
  * It is a subclass of the baseResponse class.
  */
 public class listResponse extends baseResponse {
-    private Map<Integer, GameModel> gameMap;
+    private List<GameModel> gamelist;
     /**
      * Constructs a new listResponse with the provided success status and message.
      *
      * @param message A message associated with the response.
      */
-    public listResponse(String message, Map<Integer, GameModel> map) {
+    public listResponse(String message, List<GameModel> gamelist) {
         super(message);
-        this.gameMap = map;
+        this.gamelist = gamelist;
     }
-    public Map<Integer, GameModel> getGameMap() {
-        return gameMap;
-    }
-    public void setGameMap(Map<Integer, GameModel> gameMap) {
-        this.gameMap = gameMap;
+    public List<GameModel> getGameMap() {
+        return gamelist;
     }
 }

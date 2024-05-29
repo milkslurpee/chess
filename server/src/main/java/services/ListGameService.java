@@ -6,6 +6,7 @@ import dataaccess.UserDAO;
 import models.GameModel;
 import responses.listResponse;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,12 +24,8 @@ public class ListGameService {
      * @return A listResponse indicating the success of the listing operation.
      */
     public listResponse list() {
-        Map<Integer, GameModel> map;
-        try {
-            map = gameDAO.getGameMap();
-        } catch (DataAccessException e) {
-            return new listResponse("No games to list", null);
-        }
-        return new listResponse("Games listed successfully", map);
+        List<GameModel> GameList;
+        GameList = gameDAO.getGameList();
+        return new listResponse(null, GameList);
     }
 }

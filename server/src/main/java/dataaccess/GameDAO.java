@@ -2,7 +2,9 @@ package dataaccess;
 
 import models.GameModel;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -83,5 +85,11 @@ public class GameDAO {
         else{
             throw new DataAccessException("There are no Games to list");
         }
+    }
+
+    public List<GameModel> getGameList() {
+        List<GameModel> listOfGames = new ArrayList<>();
+        gameMap.forEach((integer, gameData) -> listOfGames.add(gameData));
+        return listOfGames;
     }
 }

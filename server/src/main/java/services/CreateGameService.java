@@ -40,7 +40,7 @@ public class CreateGameService {
 
         int newGameID = generateUniqueGameID();
         ChessGame newChessGame = new ChessGame();
-        GameModel newGame = new GameModel(newGameID, "White Player", "Black Player", gameName, newChessGame);
+        GameModel newGame = new GameModel(newGameID, null, null, gameName, newChessGame);
 
         try {
             gameDAO.insert(newGame);
