@@ -15,7 +15,7 @@ public class JoinGameService {
     AuthDAO authDAO;
     UserDAO userDAO;
     GameDAO gameDAO;
-    ServiceUtils utils = new ServiceUtils();
+    VerifyAuth utils = new VerifyAuth();
     GameModel gameToBeJoined;
 
 
