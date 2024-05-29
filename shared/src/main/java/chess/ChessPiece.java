@@ -144,6 +144,27 @@ public class ChessPiece {
         return validMoves;
     }
 
+    public Collection<ChessMove> generateMove(ChessBoard board, ChessPosition myPosition, int[][] directions) {
+        Set<ChessMove> validMoves= new HashSet<>();
+        int row = myPosition.getRow();
+        int column = myPosition.getColumn();
+
+        for(int[] direction : directions){
+            int newRow = row + direction[0];
+            int newCol = column + direction[1];
+
+            if(newRow > 0 && newRow < 9 && newCol > 0 && newCol < 9){
+                ChessPosition newPosition = new ChessPosition(newRow,newCol);
+                ChessPiece newPiece = board.getPiece(newPosition);
+
+                if(newPiece == null || newPiece.getTeamColor() != this.teamColor){
+                    validMoves.add(new ChessMove(myPosition,newPosition));
+                }
+            }
+        }
+        return validMoves;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(teamColor, pieceType);
