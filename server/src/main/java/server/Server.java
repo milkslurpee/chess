@@ -27,7 +27,7 @@ public class Server {
         Spark.post("/user", (request, response) -> new RegisterHandler(new RegisterService(authDAO, userDAO, gameDAO), gson).handleRegister(request, response));
         Spark.post("/session", (request, response) -> new LoginHandler(new LoginService(authDAO, userDAO, gameDAO), gson).handleLogin(request, response));
         Spark.delete("/session", (request, response) -> new LogoutHandler(new LogoutService(authDAO, userDAO), gson).handleLogout(request, response));
-        Spark.get("/game", (request, response) -> new ListGamesHandler(new ListGameService(gameDAO), gson).handleList(request, response));
+        Spark.get("/game", (request, response) -> new ListGamesHandler(new ListGameService(gameDAO), gson, authDAO).handleList(request, response));
         Spark.post("/game", (request, response) -> new CreateGameHandler(new CreateGameService(authDAO, userDAO, gameDAO), gson).handleCreate(request, response));
         Spark.put("/game", (request, response) -> new JoinGameHandler(userDAO, authDAO, gameDAO).handleJoin(request, response));
 
