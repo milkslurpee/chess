@@ -73,6 +73,10 @@ public class AuthDAO {
         return null;
     }
 
+    public void verifyAuth(AuthDAO authDAO, String token) throws DataAccessException {
+        authDAO.read(token);
+    }
+
 
     /**
      * Clears all authentication tokens from the data store.
