@@ -4,11 +4,14 @@ import chess.ChessGame;
 import org.junit.jupiter.api.*;
 import dataaccess.*;
 import handlers.*;
+import requests.CreateGameRequest;
+import requests.RegisterRequest;
+import responses.createGameResponse;
+import responses.registerResponse;
 import services.*;
 import models.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 
@@ -17,8 +20,6 @@ public class ServiceUnitTests {
     private GameDAO gameDAO;
     private AuthDAO authDAO;
     private UserDAO userDAO;
-    private Authtoken authData;
-    private CreateGameService createGameService;
 
 
     @BeforeEach
@@ -44,7 +45,71 @@ public class ServiceUnitTests {
 
     @Test
     @Order(2)
-    void
+    public void createGameSuccess() throws DataAccessException {
+        // Mocking valid authentication
+        Authtoken authtoken = new Authtoken("ValidAuthToken", "User1");
+        authDAO.insert(authtoken);
+        CreateGameService createGameService = new CreateGameService(authDAO, userDAO, gameDAO);
 
+        // Creating a request for a new game
+     //   GameModel game = new GameModel(123, "beans", "rice", "partysauce", chessGame);
+        CreateGameRequest request = new CreateGameRequest("partysauce");
+        // Calling the createGame method
+        createGameResponse response = createGameService.createGame(authtoken.getAuthToken(), request);
+
+        // Verifying the response
+        assertNull(response.getMessage());
+    }
+
+    @Test
+    @Order(3)
+    public void createGameFailure() throws DataAccessException {
+
+        Authtoken authtoken = new Authtoken("ValidAuthToken", "User1");
+        CreateGameService createGameService = new CreateGameService(authDAO, userDAO, gameDAO);
+
+
+        CreateGameRequest request = new CreateGameRequest("partysauce");
+        // Calling the createGame method
+        createGameResponse response = createGameService.createGame(authtoken.getAuthToken(), request);
+
+        // Verifying the response
+        assertNotNull(response.getMessage());
+    }
+
+    @Test
+    @Order(4)
+    public void registerSuccess() throws DataAccessException {
+        RegisterRequest request = new RegisterRequest("newUser", "password", "email@example.com");
+        registerResponse response = RegisterService.register(request);
+
+        // Verifying the response
+        assertNull(response.getMessage());
+        assertNotNull(response.getUsername());
+        assertNotNull(response.getAuthToken());
+
+        // Verifying the user is in the userDAO
+        User user = userDAO.read("newUser");
+        assertNotNull(user);
+        assertEquals("newUser", user.getUsername());
+    }
+
+    @Test
+    @Order(5)
+    public void registerFailure_UsernameTaken() throws DataAccessException {
+        // First, register a user with the username "existingUser"
+        User existingUser = new User("existingUser", "password", "email@example.com");
+        userDAO.insert(existingUser);
+
+        // Attempt to register another user with the same username
+        RegisterRequest request = new RegisterRequest("existingUser", "password", "newemail@example.com");
+        registerResponse response = RegisterService.register(request);
+
+        // Verifying the response
+        assertNotNull(response.getMessage());
+        assertEquals("Username already taken", response.getMessage());
+        assertNull(response.getUsername());
+        assertNull(response.getAuthToken());
+    }
 
 }
