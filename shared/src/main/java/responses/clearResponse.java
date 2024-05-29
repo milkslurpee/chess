@@ -4,7 +4,7 @@ package responses;
  * The clearResponse class represents a response for clearing an operation with a success status and a message.
  * It is a subclass of the baseResponse class.
  */
-public class clearResponse extends baseResponse {
+public class clearResponse extends BaseResponse {
     /**
      * Constructs a new clearResponse with the provided success status and message.
      *

@@ -3,7 +3,7 @@ package responses;
 /**
  * The baseResponse class represents a basic response object with success status and a message.
  */
-public class baseResponse {
+public class BaseResponse {
 
     /**
      * A message associated with the response.
@@ -15,7 +15,7 @@ public class baseResponse {
      *
      * @param message A message associated with the response.
      */
-    public baseResponse(String message) {
+    public BaseResponse(String message) {
         this.message = message;
     }
 

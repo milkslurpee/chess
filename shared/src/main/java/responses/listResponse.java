@@ -3,13 +3,12 @@ package responses;
 import models.GameModel;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * The listResponse class represents a response for listing items with a success status and a message.
  * It is a subclass of the baseResponse class.
  */
-public class listResponse extends baseResponse {
+public class listResponse extends BaseResponse {
     private List<GameModel> games;
     /**
      * Constructs a new listResponse with the provided success status and message.

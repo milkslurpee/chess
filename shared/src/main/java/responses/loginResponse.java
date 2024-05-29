@@ -4,7 +4,7 @@ package responses;
  * The loginResponse class represents a response for a login operation with user information, success status, and a message.
  * It is a subclass of the baseResponse class.
  */
-public class loginResponse extends baseResponse {
+public class loginResponse extends BaseResponse {
 
     /**
      * The username associated with the login response.

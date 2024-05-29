@@ -4,7 +4,7 @@ package responses;
  * The registerResponse class represents a response for a user registration operation with a success status and a message.
  * It is a subclass of the baseResponse class.
  */
-public class registerResponse extends baseResponse {
+public class registerResponse extends BaseResponse {
     private String username;
     private String authToken;
 
