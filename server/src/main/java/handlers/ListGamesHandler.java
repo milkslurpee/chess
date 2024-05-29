@@ -30,6 +30,7 @@ public class ListGamesHandler {
 
             if (gameListResponse.getMessage() == null) {
                 response.status(200);
+                //System.out.println(gameListResponse.);
                 return gson.toJson(gameListResponse);
             } else if (gameListResponse.getMessage().equals("unauthorized")) {
                 response.status(403);

@@ -10,7 +10,7 @@ import java.util.Map;
  * It is a subclass of the baseResponse class.
  */
 public class listResponse extends baseResponse {
-    private List<GameModel> gamelist;
+    private List<GameModel> games;
     /**
      * Constructs a new listResponse with the provided success status and message.
      *
@@ -18,9 +18,9 @@ public class listResponse extends baseResponse {
      */
     public listResponse(String message, List<GameModel> gamelist) {
         super(message);
-        this.gamelist = gamelist;
+        this.games = gamelist;
     }
     public List<GameModel> getGameMap() {
-        return gamelist;
+        return games;
     }
 }
