@@ -20,8 +20,8 @@ public class ListGameService {
      * @return A listResponse indicating the success of the listing operation.
      */
     public ListResponse list() {
-        List<GameModel> GameList;
-        GameList = gameDAO.getGameList();
-        return new ListResponse(null, GameList);
+        List<GameModel> gameList;
+        gameList = gameDAO.getGameList();
+        return new ListResponse(null, gameList);
     }
 }
