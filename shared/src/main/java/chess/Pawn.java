@@ -43,33 +43,31 @@ public class Pawn extends ChessPiece {
                 }
             }
 
-            if(col > 1 && col < 8) {
+            if(col > 1 && col < 9) {
                 ChessPosition leftPos = new ChessPosition(newRow, col - 1);
                 ChessPiece leftTakeover = board.getPiece(leftPos);
-                if(leftTakeover != null && leftTakeover.getTeamColor() != teamColor){
-                    if((newRow == 8 && teamColor == ChessGame.TeamColor.WHITE)
-                            || (newRow == 1 && teamColor == ChessGame.TeamColor.BLACK)){
+                if (leftTakeover != null && leftTakeover.getTeamColor() != teamColor) {
+                    if ((newRow == 8 && teamColor == ChessGame.TeamColor.WHITE)
+                            || (newRow == 1 && teamColor == ChessGame.TeamColor.BLACK)) {
                         validMoves.add(new ChessMove(myPosition, leftPos, PieceType.QUEEN));
                         validMoves.add(new ChessMove(myPosition, leftPos, PieceType.BISHOP));
                         validMoves.add(new ChessMove(myPosition, leftPos, PieceType.ROOK));
                         validMoves.add(new ChessMove(myPosition, leftPos, PieceType.KNIGHT));
-                    }
-                    else validMoves.add(new ChessMove(myPosition, leftPos));
+                    } else validMoves.add(new ChessMove(myPosition, leftPos));
                 }
-
+            }
+            if(col > 0 && col < 8) {
                 ChessPosition rightPos = new ChessPosition(newRow, col + 1);
                 ChessPiece rightTakeover = board.getPiece(rightPos);
-                if(rightTakeover != null && rightTakeover.getTeamColor() != teamColor){
-                    if((newRow == 8 && teamColor == ChessGame.TeamColor.WHITE)
-                            || (newRow == 1 && teamColor == ChessGame.TeamColor.BLACK)){
+                if (rightTakeover != null && rightTakeover.getTeamColor() != teamColor) {
+                    if ((newRow == 8 && teamColor == ChessGame.TeamColor.WHITE)
+                            || (newRow == 1 && teamColor == ChessGame.TeamColor.BLACK)) {
                         validMoves.add(new ChessMove(myPosition, rightPos, PieceType.QUEEN));
                         validMoves.add(new ChessMove(myPosition, rightPos, PieceType.BISHOP));
                         validMoves.add(new ChessMove(myPosition, rightPos, PieceType.ROOK));
                         validMoves.add(new ChessMove(myPosition, rightPos, PieceType.KNIGHT));
-                    }
-                    else validMoves.add(new ChessMove(myPosition, rightPos));
+                    } else validMoves.add(new ChessMove(myPosition, rightPos));
                 }
-
             }
         }
         return validMoves;
