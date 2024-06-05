@@ -1,7 +1,9 @@
 package handlers;
 
 import com.google.gson.Gson;
-import dataaccess.*;
+import dataaccess.memory.MemoryAuthDAO;
+import dataaccess.memory.MemoryGameDAO;
+import dataaccess.memory.MemoryUserDAO;
 import requests.JoinGameRequest;
 import responses.JoinGameResponse;
 import services.JoinGameService;
@@ -10,13 +12,13 @@ import spark.Response;
 
 public class JoinGameHandler {
 
-    private UserDAO usersDAO;
-    private AuthDAO authDAO;
-    private GameDAO gameDAO;
+    private MemoryUserDAO usersDAO;
+    private MemoryAuthDAO authDAO;
+    private MemoryGameDAO gameDAO;
     JoinGameService playerJoin = new JoinGameService();
     Gson gson = new Gson();
 
-    public JoinGameHandler(UserDAO users, AuthDAO authTokens, GameDAO games) {
+    public JoinGameHandler(MemoryUserDAO users, MemoryAuthDAO authTokens, MemoryGameDAO games) {
         this.usersDAO = users;
         this.authDAO = authTokens;
         this.gameDAO = games;

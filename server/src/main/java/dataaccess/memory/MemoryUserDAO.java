@@ -1,5 +1,6 @@
-package dataaccess;
+package dataaccess.memory;
 
+import dataaccess.DataAccessException;
 import models.User;
 
 import java.util.HashMap;
@@ -8,10 +9,10 @@ import java.util.Map;
 /**
  * The UserDAO class provides data access methods for managing user data.
  */
-public class UserDAO {
+public class MemoryUserDAO {
 
     private Map<String, User> userMap;
-    public UserDAO() {
+    public MemoryUserDAO() {
         this.userMap = new HashMap<>(); // Instantiating the userMap
     }
     /**

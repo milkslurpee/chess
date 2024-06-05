@@ -1,9 +1,9 @@
 package services;
 
-import dataaccess.AuthDAO;
+import dataaccess.memory.MemoryAuthDAO;
 import dataaccess.DataAccessException;
-import dataaccess.GameDAO;
-import dataaccess.UserDAO;
+import dataaccess.memory.MemoryGameDAO;
+import dataaccess.memory.MemoryUserDAO;
 import models.Authtoken;
 import models.User;
 import requests.LoginRequest;
@@ -15,11 +15,11 @@ import java.util.UUID;
  * The LoginService class provides a service for user login.
  */
 public class LoginService {
-    AuthDAO authDAO;
-    UserDAO userDAO;
-    GameDAO gameDAO;
+    MemoryAuthDAO authDAO;
+    MemoryUserDAO userDAO;
+    MemoryGameDAO gameDAO;
 
-    public LoginService(AuthDAO authDAO, UserDAO userDAO, GameDAO gameDAO) {
+    public LoginService(MemoryAuthDAO authDAO, MemoryUserDAO userDAO, MemoryGameDAO gameDAO) {
         this.authDAO = authDAO;
         this.gameDAO = gameDAO;
         this.userDAO = userDAO;

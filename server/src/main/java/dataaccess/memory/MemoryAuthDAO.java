@@ -1,5 +1,6 @@
-package dataaccess;
+package dataaccess.memory;
 
+import dataaccess.DataAccessException;
 import models.Authtoken;
 
 import java.util.*;
@@ -7,10 +8,10 @@ import java.util.*;
 /**
  * The AuthDAO class provides data access methods for handling authentication tokens.
  */
-public class AuthDAO {
+public class MemoryAuthDAO {
     private final Map<String, Authtoken> authMap;
 
-    public AuthDAO() {
+    public MemoryAuthDAO() {
         this.authMap = new HashMap<>(); // Instantiating the userMap
     }
     /**
@@ -73,7 +74,7 @@ public class AuthDAO {
         return null;
     }
 
-    public void verifyAuth(AuthDAO authDAO, String token) throws DataAccessException {
+    public void verifyAuth(MemoryAuthDAO authDAO, String token) throws DataAccessException {
         authDAO.read(token);
     }
 

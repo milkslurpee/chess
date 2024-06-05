@@ -1,19 +1,16 @@
 package server;
-import chess.ChessGame;
-import dataaccess.AuthDAO;
-import dataaccess.GameDAO;
-import dataaccess.UserDAO;
+import dataaccess.memory.MemoryAuthDAO;
+import dataaccess.memory.MemoryGameDAO;
+import dataaccess.memory.MemoryUserDAO;
 import spark.Spark;
 import handlers.*;
 import services.*;
 import com.google.gson.Gson;
 
-import spark.*;
-
 public class Server {
-    AuthDAO authDAO = new AuthDAO();
-    UserDAO userDAO = new UserDAO();
-    GameDAO gameDAO = new GameDAO();
+    MemoryAuthDAO authDAO = new MemoryAuthDAO();
+    MemoryUserDAO userDAO = new MemoryUserDAO();
+    MemoryGameDAO gameDAO = new MemoryGameDAO();
 
     public int run(int desiredPort) {
 

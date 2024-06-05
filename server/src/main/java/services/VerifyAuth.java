@@ -2,11 +2,11 @@ package services;
 
 
 import dataaccess.DataAccessException;
-import dataaccess.*;
+import dataaccess.memory.MemoryAuthDAO;
 
 public class VerifyAuth {
 
-    public void verifyAuth(AuthDAO authDAO, String token) throws DataAccessException {
+    public void verifyAuth(MemoryAuthDAO authDAO, String token) throws DataAccessException {
         authDAO.read(token);
     }
 

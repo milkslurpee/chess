@@ -1,6 +1,9 @@
 package servicetests;
 
 import chess.ChessGame;
+import dataaccess.memory.MemoryAuthDAO;
+import dataaccess.memory.MemoryGameDAO;
+import dataaccess.memory.MemoryUserDAO;
 import org.junit.jupiter.api.*;
 import dataaccess.*;
 import requests.CreateGameRequest;
@@ -14,16 +17,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ServiceUnitTests {
 
-    private GameDAO gameDAO;
-    private AuthDAO authDAO;
-    private UserDAO userDAO;
+    private MemoryGameDAO gameDAO;
+    private MemoryAuthDAO authDAO;
+    private MemoryUserDAO userDAO;
 
 
     @BeforeEach
     public void setup() throws DataAccessException {
-        gameDAO = new GameDAO();
-        authDAO = new AuthDAO();
-        userDAO = new UserDAO();
+        gameDAO = new MemoryGameDAO();
+        authDAO = new MemoryAuthDAO();
+        userDAO = new MemoryUserDAO();
     }
 
     @Test

@@ -1,15 +1,17 @@
 package services;
 
-import dataaccess.*;
+import dataaccess.memory.MemoryAuthDAO;
+import dataaccess.memory.MemoryGameDAO;
+import dataaccess.memory.MemoryUserDAO;
 
 /**
  * The ClearService class provides a service for clearing data or operations.
  */
 public class ClearService {
-    UserDAO userDAO;
-    AuthDAO authDAO;
-    GameDAO gameDAO;
-    public ClearService(AuthDAO authDAO, UserDAO userDAO, GameDAO gameDAO) {
+    MemoryUserDAO userDAO;
+    MemoryAuthDAO authDAO;
+    MemoryGameDAO gameDAO;
+    public ClearService(MemoryAuthDAO authDAO, MemoryUserDAO userDAO, MemoryGameDAO gameDAO) {
         this.authDAO = authDAO;
         this.gameDAO = gameDAO;
         this.userDAO = userDAO;

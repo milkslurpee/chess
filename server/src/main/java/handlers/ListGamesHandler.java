@@ -1,7 +1,7 @@
 package handlers;
 
 import com.google.gson.Gson;
-import dataaccess.AuthDAO;
+import dataaccess.memory.MemoryAuthDAO;
 import responses.ListResponse;
 import services.ListGameService;
 import spark.Request;
@@ -10,9 +10,9 @@ import spark.Response;
 public class ListGamesHandler {
     private final ListGameService listGameService;
     private final Gson gson;
-    private final AuthDAO authDAO; // Add AuthDAO to check token validity
+    private final MemoryAuthDAO authDAO; // Add AuthDAO to check token validity
 
-    public ListGamesHandler(ListGameService listGameService, Gson gson, AuthDAO authDAO) {
+    public ListGamesHandler(ListGameService listGameService, Gson gson, MemoryAuthDAO authDAO) {
         this.listGameService = listGameService;
         this.gson = gson;
         this.authDAO = authDAO; // Initialize AuthDAO
