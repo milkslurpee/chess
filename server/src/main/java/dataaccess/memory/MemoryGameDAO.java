@@ -1,6 +1,7 @@
 package dataaccess.memory;
 
 import dataaccess.DataAccessException;
+import dataaccess.GameDAO;
 import models.GameModel;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.Map;
 /**
  * The GameDAO class provides data access methods for managing game data.
  */
-public class MemoryGameDAO {
+public class MemoryGameDAO implements GameDAO {
 
     private Map<Integer, GameModel> gameMap = new HashMap<>();
 
