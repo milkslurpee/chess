@@ -1,5 +1,7 @@
 package services;
 
+import dataaccess.DataAccessException;
+import dataaccess.db.*;
 import dataaccess.memory.MemoryAuthDAO;
 import dataaccess.memory.MemoryGameDAO;
 import dataaccess.memory.MemoryUserDAO;
@@ -8,10 +10,10 @@ import dataaccess.memory.MemoryUserDAO;
  * The ClearService class provides a service for clearing data or operations.
  */
 public class ClearService {
-    MemoryUserDAO userDAO;
-    MemoryAuthDAO authDAO;
-    MemoryGameDAO gameDAO;
-    public ClearService(MemoryAuthDAO authDAO, MemoryUserDAO userDAO, MemoryGameDAO gameDAO) {
+    dbAuthDAO authDAO;
+    dbUserDAO userDAO;
+    dbGameDAO gameDAO;
+    public ClearService(dbAuthDAO authDAO, dbUserDAO userDAO, dbGameDAO gameDAO) {
         this.authDAO = authDAO;
         this.gameDAO = gameDAO;
         this.userDAO = userDAO;
@@ -20,7 +22,7 @@ public class ClearService {
     /**
      * Clears data or performs a specific operation.
      */
-    public void clear() {
+    public void clear() throws DataAccessException {
             authDAO.clear();
             gameDAO.clear();
             userDAO.clear();

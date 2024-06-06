@@ -2,6 +2,9 @@ package services;
 
 import chess.ChessGame;
 import dataaccess.*;
+import dataaccess.db.dbAuthDAO;
+import dataaccess.db.dbGameDAO;
+import dataaccess.db.dbUserDAO;
 import dataaccess.memory.MemoryAuthDAO;
 import dataaccess.memory.MemoryGameDAO;
 import dataaccess.memory.MemoryUserDAO;
@@ -14,11 +17,10 @@ import responses.CreateGameResponse;
  */
 
 public class CreateGameService {
-    private final MemoryAuthDAO authDAO;
-    private final MemoryUserDAO userDAO;
-    private final MemoryGameDAO gameDAO;
-
-    public CreateGameService(MemoryAuthDAO authDAO, MemoryUserDAO userDAO, MemoryGameDAO gameDAO) {
+    dbAuthDAO authDAO;
+    dbUserDAO userDAO;
+    dbGameDAO gameDAO;
+    public CreateGameService(dbAuthDAO authDAO, dbUserDAO userDAO, dbGameDAO gameDAO) {
         this.authDAO = authDAO;
         this.gameDAO = gameDAO;
         this.userDAO = userDAO;
@@ -31,7 +33,7 @@ public class CreateGameService {
      * @param request   The request containing details for creating the game.
      * @return A createGameResponse indicating the success of the creation operation.
      */
-    public CreateGameResponse createGame(String authToken, CreateGameRequest request) {
+    public CreateGameResponse createGame(String authToken, CreateGameRequest request) throws DataAccessException {
         if (!authDAO.validToken(authToken)) {
             return new CreateGameResponse("Error: unauthorized");
         }

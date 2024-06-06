@@ -1,5 +1,8 @@
 package services;
 
+import dataaccess.db.dbAuthDAO;
+import dataaccess.db.dbGameDAO;
+import dataaccess.db.dbUserDAO;
 import dataaccess.memory.MemoryAuthDAO;
 import dataaccess.DataAccessException;
 import dataaccess.memory.MemoryGameDAO;
@@ -15,11 +18,10 @@ import java.util.UUID;
  * The LoginService class provides a service for user login.
  */
 public class LoginService {
-    MemoryAuthDAO authDAO;
-    MemoryUserDAO userDAO;
-    MemoryGameDAO gameDAO;
-
-    public LoginService(MemoryAuthDAO authDAO, MemoryUserDAO userDAO, MemoryGameDAO gameDAO) {
+    dbAuthDAO authDAO;
+    dbUserDAO userDAO;
+    dbGameDAO gameDAO;
+    public LoginService(dbAuthDAO authDAO, dbUserDAO userDAO, dbGameDAO gameDAO) {
         this.authDAO = authDAO;
         this.gameDAO = gameDAO;
         this.userDAO = userDAO;

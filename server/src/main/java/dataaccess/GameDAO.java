@@ -47,5 +47,5 @@ public interface GameDAO {
     public void clear();
 
 
-    public List<GameModel> getGameList();
+    public List<GameModel> getGameList() throws DataAccessException;
 }

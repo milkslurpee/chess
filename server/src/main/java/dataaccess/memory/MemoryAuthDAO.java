@@ -89,7 +89,7 @@ public class MemoryAuthDAO implements AuthDAO {
         authMap.clear();
     }
 
-    public boolean validToken(String authtoken){
+    public boolean validToken(String authtoken) throws DataAccessException {
         return authMap.containsKey(authtoken);
     }
 }

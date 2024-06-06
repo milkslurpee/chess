@@ -1,5 +1,5 @@
 package services;
-import dataaccess.memory.MemoryGameDAO;
+import dataaccess.db.*;
 import models.GameModel;
 import responses.ListResponse;
 
@@ -9,8 +9,8 @@ import java.util.List;
  * The ListGameService class creates a service for listing all the games.
  */
 public class ListGameService {
-    MemoryGameDAO gameDAO;
-    public ListGameService(MemoryGameDAO gameDAO) {
+    dbGameDAO gameDAO;
+    public ListGameService(dbGameDAO gameDAO) {
         this.gameDAO = gameDAO;
     }
 

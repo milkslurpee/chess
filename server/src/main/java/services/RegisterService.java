@@ -1,5 +1,6 @@
 package services;
 
+import dataaccess.db.*;
 import dataaccess.memory.MemoryAuthDAO;
 import dataaccess.DataAccessException;
 import dataaccess.memory.MemoryGameDAO;
@@ -15,10 +16,10 @@ import java.util.UUID;
  * The RegisterService class provides a service for user registration.
  */
 public class RegisterService {
-    MemoryAuthDAO authDAO;
-    MemoryUserDAO userDAO;
-    MemoryGameDAO gameDAO;
-    public RegisterService(MemoryAuthDAO authDAO, MemoryUserDAO userDAO, MemoryGameDAO gameDAO) {
+    dbAuthDAO authDAO;
+    dbUserDAO userDAO;
+    dbGameDAO gameDAO;
+    public RegisterService(dbAuthDAO authDAO, dbUserDAO userDAO, dbGameDAO gameDAO) {
         this.authDAO = authDAO;
         this.gameDAO = gameDAO;
         this.userDAO = userDAO;

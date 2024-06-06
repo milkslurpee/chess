@@ -1,7 +1,8 @@
 package handlers;
 
 import com.google.gson.Gson;
-import dataaccess.memory.MemoryAuthDAO;
+import dataaccess.DataAccessException;
+import dataaccess.db.*;
 import responses.ListResponse;
 import services.ListGameService;
 import spark.Request;
@@ -10,15 +11,15 @@ import spark.Response;
 public class ListGamesHandler {
     private final ListGameService listGameService;
     private final Gson gson;
-    private final MemoryAuthDAO authDAO; // Add AuthDAO to check token validity
+    private final dbAuthDAO authDAO; // Add AuthDAO to check token validity
 
-    public ListGamesHandler(ListGameService listGameService, Gson gson, MemoryAuthDAO authDAO) {
+    public ListGamesHandler(ListGameService listGameService, Gson gson, dbAuthDAO authDAO) {
         this.listGameService = listGameService;
         this.gson = gson;
         this.authDAO = authDAO; // Initialize AuthDAO
     }
 
-    public String handleList(Request request, Response response) {
+    public String handleList(Request request, Response response) throws DataAccessException {
         response.type("application/json");
         String authToken = request.headers("authorization");
         // Check if the authorization header is present

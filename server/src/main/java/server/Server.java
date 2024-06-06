@@ -1,18 +1,26 @@
 package server;
-import dataaccess.memory.MemoryAuthDAO;
-import dataaccess.memory.MemoryGameDAO;
-import dataaccess.memory.MemoryUserDAO;
+import dataaccess.DataAccessException;
+import dataaccess.DatabaseManager;
+import dataaccess.db.*;
 import spark.Spark;
 import handlers.*;
 import services.*;
 import com.google.gson.Gson;
 
 public class Server {
-    MemoryAuthDAO authDAO = new MemoryAuthDAO();
-    MemoryUserDAO userDAO = new MemoryUserDAO();
-    MemoryGameDAO gameDAO = new MemoryGameDAO();
+    dbAuthDAO authDAO = new dbAuthDAO();
+    dbUserDAO userDAO = new dbUserDAO();
+    dbGameDAO gameDAO = new dbGameDAO();
 
     public int run(int desiredPort) {
+
+        try {
+            if (!DatabaseManager.databaseExists()) {
+                DatabaseManager.createDatabase();
+            }
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
 
         Spark.port(desiredPort);
 
