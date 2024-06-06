@@ -1,5 +1,6 @@
 package dataaccess;
 
+
 import java.sql.*;
 import java.util.Properties;
 
@@ -48,27 +49,6 @@ public class DatabaseManager {
     }
 
 
-
-    public static boolean databaseExists() throws DataAccessException {
-        try (var conn = DriverManager.getConnection(CONNECTION_URL, USER, PASSWORD);
-             var rs = conn.getMetaData().getCatalogs()) {
-            while (rs.next()) {
-                if (DATABASE_NAME.equals(rs.getString(1))) {
-                    return true;
-                }
-            }
-        } catch (SQLException e) {
-            throw new DataAccessException(e.getMessage());
-        }
-        return false;
-    }
-
-    public static boolean tableExists(Connection conn, String tableName) throws SQLException {
-        DatabaseMetaData dbMetaData = conn.getMetaData();
-        try (ResultSet rs = dbMetaData.getTables(null, null, tableName, new String[]{"TABLE"})) {
-            return rs.next();
-        }
-    }
 
     /**
      * Create a connection to the database and sets the catalog based upon the
