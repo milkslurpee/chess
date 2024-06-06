@@ -31,6 +31,7 @@ public class DatabaseManager {
         }
     }
 
+
     /**
      * Creates the database if it does not already exist.
      */
@@ -47,6 +48,7 @@ public class DatabaseManager {
     }
 
 
+
     public static boolean databaseExists() throws DataAccessException {
         try (var conn = DriverManager.getConnection(CONNECTION_URL, USER, PASSWORD);
              var rs = conn.getMetaData().getCatalogs()) {
@@ -59,6 +61,13 @@ public class DatabaseManager {
             throw new DataAccessException(e.getMessage());
         }
         return false;
+    }
+
+    public static boolean tableExists(Connection conn, String tableName) throws SQLException {
+        DatabaseMetaData dbMetaData = conn.getMetaData();
+        try (ResultSet rs = dbMetaData.getTables(null, null, tableName, new String[]{"TABLE"})) {
+            return rs.next();
+        }
     }
 
     /**

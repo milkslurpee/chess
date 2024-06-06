@@ -22,7 +22,7 @@ public interface GameDAO {
      */
     public GameModel read(int gameID) throws DataAccessException;
 
-    public void updateGame(int gameID, GameModel gameData);
+    public void updateGame(int gameID, GameModel gameData) throws DataAccessException;
 
     /**
      * Inserts a GameModel into the data store.
@@ -44,7 +44,7 @@ public interface GameDAO {
      *
      * @throws DataAccessException If there is an issue accessing the data.
      */
-    public void clear();
+    public void clear() throws DataAccessException;
 
 
     public List<GameModel> getGameList() throws DataAccessException;

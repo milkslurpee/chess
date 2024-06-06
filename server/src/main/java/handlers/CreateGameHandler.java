@@ -1,6 +1,7 @@
 package handlers;
 
 import com.google.gson.Gson;
+import dataaccess.DataAccessException;
 import requests.CreateGameRequest;
 import responses.CreateGameResponse;
 import services.CreateGameService;
@@ -16,7 +17,7 @@ public class CreateGameHandler {
         this.gson = gson;
     }
 
-    public Object handleCreate(Request request, Response response) {
+    public Object handleCreate(Request request, Response response) throws DataAccessException {
         response.type("application/json");
 
         String authToken = request.headers("authorization");

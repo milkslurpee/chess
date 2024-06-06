@@ -9,6 +9,36 @@ import java.sql.*;
 
 public class dbAuthDAO implements AuthDAO {
 
+    private static String tableName = "auth";
+
+    public dbAuthDAO() {
+        try {
+            configureDatabase(createStatements);
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public final String [] createStatements = {
+            "CREATE TABLE IF NOT EXISTS " + tableName + " (" +
+                    " authToken VARCHAR(200) PRIMARY KEY," +
+                    " username VARCHAR(200) NOT NULL" +
+                    ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci"
+    };
+
+    public void configureDatabase(final String [] createStatements) throws DataAccessException {
+        DatabaseManager.createDatabase();
+        try (var conn = DatabaseManager.getConnection()) {
+            for (var statement : createStatements) {
+                try (var preparedStatement = conn.prepareStatement(statement)) {
+                    preparedStatement.executeUpdate();
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DataAccessException("Unable to configure database: " + ex.getMessage());
+        }
+    }
+
     @Override
     public Authtoken read(String authtokenID) throws DataAccessException {
         Authtoken authtoken = null;
@@ -22,7 +52,7 @@ public class dbAuthDAO implements AuthDAO {
                 }
             }
         } catch (SQLException e) {
-            throw new DataAccessException("Error encountered while finding authtoken", e);
+            throw new DataAccessException("Error encountered while finding authtoken");
         }
         return authtoken;
     }
@@ -36,7 +66,7 @@ public class dbAuthDAO implements AuthDAO {
             stmt.setString(2, authtoken.getUserName());
             stmt.executeUpdate();
         } catch (SQLException e) {
-            throw new DataAccessException("Error encountered while inserting authtoken", e);
+            throw new DataAccessException("Error encountered while inserting authtoken");
         }
     }
 
@@ -59,7 +89,7 @@ public class dbAuthDAO implements AuthDAO {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.executeUpdate();
         } catch (SQLException e) {
-            throw new DataAccessException("Error encountered while clearing authtokens", e);
+            throw new DataAccessException("Error encountered while clearing authtokens");
         }
     }
 
@@ -73,7 +103,7 @@ public class dbAuthDAO implements AuthDAO {
                 return rs.next();
             }
         } catch (SQLException e) {
-            throw new DataAccessException("Error encountered while validating authtoken", e);
+            throw new DataAccessException("Error encountered while validating authtoken");
         }
     }
 }

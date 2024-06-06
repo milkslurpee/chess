@@ -7,20 +7,19 @@ import handlers.*;
 import services.*;
 import com.google.gson.Gson;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
 public class Server {
-    dbAuthDAO authDAO = new dbAuthDAO();
-    dbUserDAO userDAO = new dbUserDAO();
-    dbGameDAO gameDAO = new dbGameDAO();
+
+    dbAuthDAO authDAO;
+    dbUserDAO userDAO;
+    dbGameDAO gameDAO;
+
 
     public int run(int desiredPort) {
 
-        try {
-            if (!DatabaseManager.databaseExists()) {
-                DatabaseManager.createDatabase();
-            }
-        } catch (DataAccessException e) {
-            throw new RuntimeException(e);
-        }
+        initializeDatabase();
 
         Spark.port(desiredPort);
 
@@ -40,6 +39,51 @@ public class Server {
 
         Spark.awaitInitialization();
         return Spark.port();
+    }
+
+    private void initializeDatabase() {
+        try {
+            // Check if the database exists
+            if (!DatabaseManager.databaseExists()) {
+                // If the database doesn't exist, create it
+                DatabaseManager.createDatabase();
+            }
+
+            // Connect to the database
+            try (Connection conn = DatabaseManager.getConnection()) {
+                // DAO
+
+                // Check if tables exist
+                if (!DatabaseManager.tableExists(conn, "game")) {
+                    // If the game table doesn't exist, create it
+                    this.gameDAO = new dbGameDAO();
+                    this.gameDAO.configureDatabase(this.gameDAO.createStatements);
+                } else {
+                    // If the game table exists, use it
+                    this.gameDAO = new dbGameDAO();
+                }
+
+                if (!DatabaseManager.tableExists(conn, "user")) {
+                    // If the user table doesn't exist, create it
+                    this.userDAO = new dbUserDAO();
+                    this.userDAO.configureDatabase(this.userDAO.createStatements);
+                } else {
+                    // If the user table exists, use it
+                    this.userDAO = new dbUserDAO();
+                }
+
+                if (!DatabaseManager.tableExists(conn, "auth")) {
+                    // If the auth table doesn't exist, create it
+                    this.authDAO = new dbAuthDAO();
+                    this.authDAO.configureDatabase(this.authDAO.createStatements);
+                } else {
+                    // If the auth table exists, use it
+                    this.authDAO = new dbAuthDAO();
+                }
+            }
+        } catch (DataAccessException | SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 
