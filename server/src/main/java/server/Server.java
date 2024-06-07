@@ -22,6 +22,18 @@ public class Server {
             System.err.println("YOU FAILED, COMMIT SEPPUKU" + e.getMessage());
         }
 
+        // hunter 211 this is overlord awaiting visual confirmation over
+        // solid copy overlord we're about 20 clicks northwest of the DZ over
+        // hunter 211 be advised, we're picking up 30+ bogies approaching your location from the southwest
+        // hunter 211 do you copy? You have a significant enemy presence heading in your direction
+        // hunter 211 acknowledge
+        // *gunfire* overlo-- this is hu--er 211 we h--- *explosion* CONTACT CON---- RIGHT!!!
+        // WHAT TH- -ELL IS THA-!! *screams*
+        // hunter 211 do you copy?
+        // *strange mix of humming and clicking sounds*
+        // hunter 211 how do you read?
+        // *silence*
+        // *clicking and crunching sounds, like something being eaten*
 
         Spark.port(desiredPort);
 
