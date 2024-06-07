@@ -42,13 +42,42 @@ public class DatabaseManager {
             var conn = DriverManager.getConnection(CONNECTION_URL, USER, PASSWORD);
             try (var preparedStatement = conn.prepareStatement(statement)) {
                 preparedStatement.executeUpdate();
+                createTables();
             }
         } catch (SQLException e) {
             throw new DataAccessException(e.getMessage());
         }
     }
 
+    static void createTables() throws DataAccessException {
+        String usersTableSQL = "CREATE TABLE IF NOT EXISTS users ("
+                + "username VARCHAR(50) UNIQUE PRIMARY KEY, "
+                + "password VARCHAR(255) NOT NULL, "
+                + "email VARCHAR(100) UNIQUE NOT NULL)";
 
+        String gamesTableSQL = "CREATE TABLE IF NOT EXISTS games ("
+                + "gameID  INT NOT NULL AUTO_INCREMENT PRIMARY KEY, "
+                + "whiteUsername VARCHAR(50), "
+                + "blackUsername VARCHAR(50), "
+                + "gameName VARCHAR(255) NOT NULL, "
+                + "chessGame TEXT NOT NULL, "//Jason String?
+                + "FOREIGN KEY (whiteUsername) REFERENCES users(username), "
+                + "FOREIGN KEY (blackUsername) REFERENCES users(username))";
+
+        String authTableSQL = "CREATE TABLE IF NOT EXISTS auth ("
+                + "authToken VARCHAR(255) PRIMARY KEY, "
+                + "username VARCHAR(50) NOT NULL, "
+                + "FOREIGN KEY (username) REFERENCES users(username))";
+
+
+        try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
+            statement.execute(usersTableSQL);
+            statement.execute(gamesTableSQL);
+            statement.execute(authTableSQL);
+        } catch (SQLException e) {
+            throw new DataAccessException("Error creating tables: " + e.getMessage());
+        }
+    }
 
     /**
      * Create a connection to the database and sets the catalog based upon the

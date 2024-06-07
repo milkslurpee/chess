@@ -9,7 +9,7 @@ import models.Authtoken;
 import models.User;
 import requests.RegisterRequest;
 import responses.RegisterResponse;
-
+import org.mindrot.jbcrypt.BCrypt;
 import java.util.UUID;
 
 /**
@@ -48,7 +48,7 @@ public class RegisterService {
                 return new RegisterResponse(null, null, "Data access error: " + e.getMessage());
             }
         }
-
+        String hashedPassword = BCrypt.hashpw(request.getPassword(), BCrypt.gensalt());
         // Create a new user and save to the database
         User newUser = new User(username, password, email);
         try {

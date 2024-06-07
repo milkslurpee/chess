@@ -8,7 +8,6 @@ import dataaccess.db.dbUserDAO;
 import models.Authtoken;
 import models.GameModel;
 import models.User;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

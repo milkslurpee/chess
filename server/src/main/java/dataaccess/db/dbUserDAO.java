@@ -16,6 +16,8 @@ import static java.sql.Types.NULL;
 
 public class dbUserDAO implements UserDAO {
     int size = 0;
+
+
     @Override
     public void insert(User userInfo) throws DataAccessException {
 

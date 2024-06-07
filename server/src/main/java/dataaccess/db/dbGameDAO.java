@@ -20,6 +20,7 @@ public class dbGameDAO implements GameDAO {
 
     int size = 0;
 
+
     @Override
     public void insert(GameModel gameData) throws DataAccessException {
         var statement = "INSERT INTO games (gameID, whiteUsername, blackUsername, gameName, chessGame) VALUES (?, ?, ?, ?, ?)";

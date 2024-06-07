@@ -12,7 +12,9 @@ import static java.sql.Statement.RETURN_GENERATED_KEYS;
 import static java.sql.Types.NULL;
 
 public class dbAuthDAO implements AuthDAO {
+
     int size = 0;
+
 
     @Override
     public void insert (Authtoken authData) throws DataAccessException {
