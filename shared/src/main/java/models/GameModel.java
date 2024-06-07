@@ -67,4 +67,12 @@ public class GameModel {
     public ChessGame getGame() {
         return game;
     }
+
+    public void setWhiteUsername(String newPlayer) {
+        this.whiteUsername = newPlayer;
+    }
+
+    public void setBlackUsername(String newPlayer) {
+        this.blackUsername = newPlayer;
+    }
 }

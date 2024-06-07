@@ -25,20 +25,40 @@ public class JoinGameService {
      * @return A joinGameResponse indicating the success of the joining operation.
      */
     public void join(dbGameDAO games, dbAuthDAO authTokens, String authToken, JoinGameRequest request) throws DataAccessException {
-
-        authDAO.read(authToken);
-        games.read(request.gameID());
-        gameToBeJoined = games.read(request.gameID());
-        if (Objects.equals(request.gameID(), 0) || request.playerColor()==null){
-            throw new DataAccessException("bad request");
-        }
-        if(!(request.playerColor().equals("WHITE") || request.playerColor().equals("BLACK"))){
+        if (request.gameID() == -1) {
             throw new DataAccessException("bad request");
         }
 
+        // Validate auth token
         Authtoken userJoingAuth = authTokens.read(authToken);
-        GameModel updatedGame = getUpdatedGame(request, userJoingAuth);
-        games.updateGame(gameToBeJoined.getGameID(), updatedGame);
+        String newPlayer = userJoingAuth.getUserName();
+
+        // Read the game from the database
+        GameModel gameToBeJoined = games.read(request.gameID());
+        if (gameToBeJoined == null) {
+            throw new DataAccessException("Game not found");
+        }
+
+        // Validate player color
+        if (!(request.playerColor().equals("WHITE") || request.playerColor().equals("BLACK"))) {
+            throw new DataAccessException("bad request");
+        }
+
+        // Update the game model with the new player
+        if (request.playerColor().equals("WHITE")) {
+            if (gameToBeJoined.getWhiteUsername() != null) {
+                throw new DataAccessException("already taken");
+            }
+            gameToBeJoined.setWhiteUsername(newPlayer);
+        } else {
+            if (gameToBeJoined.getBlackUsername() != null) {
+                throw new DataAccessException("already taken");
+            }
+            gameToBeJoined.setBlackUsername(newPlayer);
+        }
+
+        // Save the updated game model to the database
+        games.updateGame(gameToBeJoined.getGameID(), gameToBeJoined);
     }
 
     private GameModel getUpdatedGame(JoinGameRequest request, Authtoken userJoingAuth) throws DataAccessException {

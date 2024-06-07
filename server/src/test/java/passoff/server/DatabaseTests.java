@@ -1,6 +1,7 @@
 package passoff.server;
 
 import chess.ChessGame;
+import models.GameModel;
 import org.junit.jupiter.api.*;
 import passoff.model.*;
 import server.Server;
@@ -54,7 +55,7 @@ public class DatabaseTests {
         TestCreateResult createResult = serverFacade.createGame(new TestCreateRequest(gameName), auth);
 
         //join the game
-        serverFacade.joinPlayer(new TestJoinRequest(ChessGame.TeamColor.WHITE, createResult.getGameID()), auth);
+        TestResult game = serverFacade.joinPlayer(new TestJoinRequest(ChessGame.TeamColor.WHITE, createResult.getGameID()), auth);
 
         Assertions.assertTrue(initialRowCount < getDatabaseRows(), "No new data added to database");
 

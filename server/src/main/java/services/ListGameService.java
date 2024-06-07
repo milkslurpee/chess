@@ -21,8 +21,7 @@ public class ListGameService {
      * @return A listResponse indicating the success of the listing operation.
      */
     public ListResponse list() throws DataAccessException {
-        List<GameModel> gameList;
-        gameList = gameDAO.getGameList();
+        List<GameModel> gameList = gameDAO.getGameList();
         return new ListResponse(null, gameList);
     }
 }

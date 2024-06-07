@@ -35,7 +35,11 @@ public class CreateGameService {
      */
     public CreateGameResponse createGame(String authToken, CreateGameRequest request) throws DataAccessException {
 
-        authDAO.read(authToken);
+        try {
+            authDAO.read(authToken);
+        } catch (DataAccessException e) {
+            return new CreateGameResponse("Error: unauthorized");
+        }
 
         String gameName = request.getGameName();
         if (gameName == null || gameName.isEmpty()) {

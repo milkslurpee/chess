@@ -9,6 +9,7 @@ import dataaccess.memory.MemoryGameDAO;
 import dataaccess.memory.MemoryUserDAO;
 import models.Authtoken;
 import models.User;
+import org.mindrot.jbcrypt.BCrypt;
 import requests.LoginRequest;
 import responses.LoginResponse;
 
@@ -32,7 +33,7 @@ public class LoginService {
         String password = loginRequest.getPassword();
 
         // Validate the user's credentials
-        User user = null;
+        User user;
         try {
             user = userDAO.read(username);
           //  System.out.println("User found: " + user.getUsername());
@@ -41,7 +42,7 @@ public class LoginService {
             return new LoginResponse(null, null, "User doesn't exist");
         }
 
-        if (user.getPassword().equals(password)) {
+        if (user!= null && BCrypt.checkpw(password, user.getPassword())) {
             String authToken = generateAuthToken();
 
             try {
