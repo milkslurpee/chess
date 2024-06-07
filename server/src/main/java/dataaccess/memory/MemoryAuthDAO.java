@@ -75,10 +75,6 @@ public class MemoryAuthDAO implements AuthDAO {
         return null;
     }
 
-//    public void verifyAuth(MemoryAuthDAO authDAO, String token) throws DataAccessException {
-//        authDAO.read(token);
-//    }
-
 
     /**
      * Clears all authentication tokens from the data store.

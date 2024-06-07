@@ -59,7 +59,7 @@ public class dbAuthDAO implements AuthDAO {
     @Override
     public void delete(String authToken) throws DataAccessException {
         var statement = "DELETE FROM auth WHERE authToken = ?";
-        executeUpdate(statement, authToken);
+        updateTable(statement, authToken);
         size--;
 
     }
@@ -67,7 +67,7 @@ public class dbAuthDAO implements AuthDAO {
     @Override
     public void clear() throws DataAccessException {
         var statement = "DELETE FROM auth";
-        executeUpdate(statement);
+        updateTable(statement);
         size=0;
 
     }
@@ -76,7 +76,7 @@ public class dbAuthDAO implements AuthDAO {
         return size;
     }
 
-    static int executeUpdate(String statement, Object... params) throws DataAccessException {
+    static int updateTable(String statement, Object... params) throws DataAccessException {
         try (var conn = DatabaseManager.getConnection()) {
             try (var ps = conn.prepareStatement(statement, RETURN_GENERATED_KEYS)) {
                 for (var i = 0; i < params.length; i++) {
