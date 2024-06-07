@@ -30,7 +30,7 @@ public class JoinGameService {
         utils.verifyAuth(authTokens, authToken);
         games.read(request.gameID());
         gameToBeJoined = games.read(request.gameID());
-        if (Objects.equals(request.gameID(), "0") || request.playerColor()==null){
+        if (Objects.equals(request.gameID(), 0) || request.playerColor()==null){
             throw new DataAccessException("bad request");
         }
         if(!(request.playerColor().equals("WHITE") || request.playerColor().equals("BLACK"))){

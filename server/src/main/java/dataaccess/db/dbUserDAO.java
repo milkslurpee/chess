@@ -15,38 +15,41 @@ import static java.sql.Statement.RETURN_GENERATED_KEYS;
 import static java.sql.Types.NULL;
 
 public class dbUserDAO implements UserDAO {
-
-    private static String tableName = "user";
     int size = 0;
+    @Override
+    public void insert(User userInfo) throws DataAccessException {
 
-    public dbUserDAO() {
-        try {
-            configureDatabase(createStatements);
-        } catch (DataAccessException e) {
-            throw new RuntimeException(e);
-        }
+        var statement = "INSERT INTO users (username, password, email) VALUES (?, ?, ?)";
+        executeUpdate(statement, userInfo.getUsername(), userInfo.getPassword(), userInfo.getEmail());
+        size++;
     }
 
-    public final String[] createStatements = {
-            "CREATE TABLE IF NOT EXISTS " + tableName + " (" +
-                    " username VARCHAR(200) PRIMARY KEY," +
-                    " password VARCHAR(200) NOT NULL," +
-                    " email VARCHAR(200) NOT NULL" +
-                    ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci"
-    };
+    public void delete(String username) throws DataAccessException {
+        String checkUserExistsSql = "SELECT COUNT(*) FROM users WHERE username = ?";
+        String deleteUserSql = "DELETE FROM users WHERE username = ?";
 
-    public void configureDatabase(final String [] createStatements) throws DataAccessException {
-        DatabaseManager.createDatabase();
-        try (var conn = DatabaseManager.getConnection()) {
-            for (var statement : createStatements) {
-                try (var preparedStatement = conn.prepareStatement(statement)) {
-                    preparedStatement.executeUpdate();
+        try (Connection conn = DatabaseManager.getConnection()) {
+            // Check if the user exists
+            try (PreparedStatement checkStmt = conn.prepareStatement(checkUserExistsSql)) {
+                checkStmt.setString(1, username);
+                try (ResultSet rs = checkStmt.executeQuery()) {
+                    if (rs.next() && rs.getInt(1) == 0) {
+                        throw new DataAccessException("User doesn't exist");
+                    }
                 }
             }
-        } catch (SQLException ex) {
-            throw new DataAccessException("Unable to configure database: " + ex.getMessage());
+
+            // Delete the user
+            try (PreparedStatement deleteStmt = conn.prepareStatement(deleteUserSql)) {
+                deleteStmt.setString(1, username);
+                deleteStmt.executeUpdate();
+            }
+        } catch (SQLException e) {
+            throw new DataAccessException(e.getMessage());
         }
     }
+
+
 
     @Override
     public User read(String username) throws DataAccessException {
@@ -70,10 +73,11 @@ public class dbUserDAO implements UserDAO {
     }
 
     @Override
-    public void insert(User user) throws DataAccessException {
-        var statement = "INSERT INTO users (username, password, email) VALUES (?, ?, ?)";
-        executeUpdate(statement, user.getUsername(), user.getPassword(), user.getEmail());
-        size++;
+    public void clear() throws DataAccessException {
+        var statement = "DELETE FROM users";
+        executeUpdate(statement);
+        size=0;
+
     }
 
     static int executeUpdate(String statement, Object... params) throws DataAccessException {
@@ -105,26 +109,7 @@ public class dbUserDAO implements UserDAO {
         }
     }
 
-    @Override
-    public void delete(String username) throws DataAccessException {
-        String sql = "DELETE FROM User WHERE username = ?";
-        try (Connection conn = DatabaseManager.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, username);
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            throw new DataAccessException(e.getMessage());
-        }
-    }
-
-    @Override
-    public void clear() throws DataAccessException {
-        String sql = "DELETE FROM User";
-        try (Connection conn = DatabaseManager.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            throw new DataAccessException(e.getMessage());
-        }
+    public int size() {
+        return size;
     }
 }

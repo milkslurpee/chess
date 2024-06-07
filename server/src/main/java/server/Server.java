@@ -12,9 +12,9 @@ import java.sql.SQLException;
 
 public class Server {
 
-    dbAuthDAO authDAO;
-    dbUserDAO userDAO;
-    dbGameDAO gameDAO;
+    dbAuthDAO authDAO = new dbAuthDAO();
+    dbUserDAO userDAO = new dbUserDAO();
+    dbGameDAO gameDAO = new dbGameDAO();
 
 
     public int run(int desiredPort) {
@@ -22,7 +22,7 @@ public class Server {
         try {
             DatabaseManager.createDatabase();
         }catch (DataAccessException e) {
-            System.err.println("Error creating database: " + e.getMessage());
+            System.err.println("YOU FAILED, COMMIT SEPPUKU" + e.getMessage());
         }
 
 
