@@ -25,10 +25,8 @@ public class JoinGameHandler {
     public Object handleJoin(Request request, Response response) throws Exception {
 
         String token = request.headers("authorization");
-        if (!authDAO.validToken(token)) {
-            response.status(401);
-            return gson.toJson(new JoinGameResponse("Error: unauthorized"));
-        }
+        authDAO.read(token);
+
         try {
             JoinGameRequest newReq = gson.fromJson(request.body(), JoinGameRequest.class);
             playerJoin.join(gameDAO, authDAO, token, newReq);

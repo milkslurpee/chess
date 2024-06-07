@@ -23,10 +23,7 @@ public class ListGamesHandler {
         response.type("application/json");
         String authToken = request.headers("authorization");
         // Check if the authorization header is present
-        if (authToken == null || !authDAO.validToken(authToken)) {
-            response.status(401);
-            return gson.toJson(new ListResponse("Error: unauthorized", null));
-        }
+        authDAO.read(authToken);
         ListResponse gameListResponse = listGameService.list();
         try {
             // Call the list service

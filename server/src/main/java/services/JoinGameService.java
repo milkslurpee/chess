@@ -15,7 +15,6 @@ public class JoinGameService {
     dbAuthDAO authDAO;
     dbUserDAO userDAO;
     dbGameDAO gameDAO;
-    VerifyAuth utils = new VerifyAuth();
     GameModel gameToBeJoined;
 
 
@@ -27,7 +26,7 @@ public class JoinGameService {
      */
     public void join(dbGameDAO games, dbAuthDAO authTokens, String authToken, JoinGameRequest request) throws DataAccessException {
 
-        utils.verifyAuth(authTokens, authToken);
+        authDAO.read(authToken);
         games.read(request.gameID());
         gameToBeJoined = games.read(request.gameID());
         if (Objects.equals(request.gameID(), 0) || request.playerColor()==null){
