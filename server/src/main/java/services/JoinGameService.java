@@ -61,22 +61,4 @@ public class JoinGameService {
         games.updateGame(gameToBeJoined.getGameID(), gameToBeJoined);
     }
 
-    private GameModel getUpdatedGame(JoinGameRequest request, Authtoken userJoingAuth) throws DataAccessException {
-        String newPlayer = userJoingAuth.getUserName();
-
-        GameModel updatedGame;
-        if(request.playerColor().equals("WHITE")){
-            if (gameToBeJoined.getWhiteUsername() != null){
-                throw new DataAccessException("already taken");
-            }
-            updatedGame = new GameModel(gameToBeJoined.getGameID(), newPlayer, gameToBeJoined.getBlackUsername(), gameToBeJoined.getBlackUsername(), gameToBeJoined.getGame());
-        }
-        else{
-            if (gameToBeJoined.getBlackUsername() != null){
-                throw new DataAccessException("already taken");
-            }
-            updatedGame = new GameModel(gameToBeJoined.getGameID(), gameToBeJoined.getWhiteUsername(), newPlayer, gameToBeJoined.getGameName(), gameToBeJoined.getGame());
-        }
-        return updatedGame;
-    }
 }

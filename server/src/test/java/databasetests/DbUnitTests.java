@@ -34,7 +34,7 @@ public class DbUnitTests {
     @Test
     void testClearDB() throws DataAccessException {
         assertEquals(0, users.size());
-        users.insert(new User("testUser", "password", "taco@tuesdays.com"));
+        users.insert(new User("beans", "potatoes", "tamales@quesadilla.imhungry"));
         assertEquals(1, users.size());
         users.clear();
         assertEquals(0, users.size());
@@ -43,17 +43,17 @@ public class DbUnitTests {
     @Test
     void testCreateUserPos() throws DataAccessException {
         assertEquals(0, users.size());
-        users.insert(new User("testUser", "password", "taco@tuesdays.com"));
+        users.insert(new User("beans", "potatoes", "tamales@quesadilla.imhungry"));
         assertEquals(1, users.size());
     }
 
     @Test
     void testCreateUserNeg() throws DataAccessException {
         assertEquals(0, users.size());
-        users.insert(new User("testUser", "password", "taco@tuesdays.com"));
+        users.insert(new User("beans", "potatoes", "tamales@quesadilla.imhungry"));
         assertEquals(1, users.size());
         assertThrows(DataAccessException.class, () -> {
-            users.insert(new User("testUser", "newpassword", "New@email.com"));
+            users.insert(new User("beans", "newpassword", "New@email.com"));
 
         });
     }
@@ -61,18 +61,18 @@ public class DbUnitTests {
     @Test
     void testGetUserPos() throws DataAccessException {
         assertEquals(0, users.size());
-        users.insert(new User("testUser", "password", "taco@tuesdays.com"));
+        users.insert(new User("beans", "potatoes", "tamales@quesadilla.imhungry"));
 
 
 
-        assertEquals("testUser", users.read("testUser").getUsername());
-        assertEquals("password", users.read("testUser").getPassword());
+        assertEquals("beans", users.read("beans").getUsername());
+        assertEquals("potatoes", users.read("beans").getPassword());
     }
 
     @Test
     void testGetUserNullandNeg() throws DataAccessException {
         assertEquals(0, users.size());
-        users.insert(new User("testUser", "password", "taco@tuesdays.com"));
+        users.insert(new User("beans", "potatoes", "tamales@quesadilla.imhungry"));
 
         assertNull(users.read(null));
     }
@@ -83,8 +83,8 @@ public class DbUnitTests {
 
         assertEquals(0, users.size());
         assertEquals(0, tokens.size());
-        users.insert(new User("testUser", "password", "taco@tuesdays.com"));
-        tokens.insert(new Authtoken(generateAuthToken(), "testUser"));
+        users.insert(new User("beans", "potatoes", "tamales@quesadilla.imhungry"));
+        tokens.insert(new Authtoken(generateAuthToken(), "beans"));
         assertEquals(1, users.size());
         assertEquals(1, tokens.size());
     }
@@ -95,30 +95,30 @@ public class DbUnitTests {
 
     @Test
     void testCreateAuthNeg() throws DataAccessException {
-        users.insert(new User("testUser", "password", "taco@tuesdays.com"));
+        users.insert(new User("beans", "potatoes", "tamales@quesadilla.imhungry"));
         var thisToken = generateAuthToken();
-        tokens.insert(new Authtoken(thisToken, "testUser"));
-        tokens.insert(new Authtoken(generateAuthToken(), "testUser"));
+        tokens.insert(new Authtoken(thisToken, "beans"));
+        tokens.insert(new Authtoken(generateAuthToken(), "beans"));
         assertEquals(2, tokens.size());
     }
 
     @Test
     void testGetAuthPos() throws DataAccessException {
-        users.insert(new User("testUser", "password", "taco@tuesdays.com"));
+        users.insert(new User("beans", "potatoes", "tamales@quesadilla.imhungry"));
         var thisToken = generateAuthToken();
         var thatToken = generateAuthToken();
-        tokens.insert(new Authtoken(thisToken, "testUser"));
-        tokens.insert(new Authtoken(thatToken, "testUser"));
-        assertEquals("testUser", tokens.read(thisToken).getUserName());
-        assertEquals("testUser", tokens.read(thatToken).getUserName());
+        tokens.insert(new Authtoken(thisToken, "beans"));
+        tokens.insert(new Authtoken(thatToken, "beans"));
+        assertEquals("beans", tokens.read(thisToken).getUserName());
+        assertEquals("beans", tokens.read(thatToken).getUserName());
 
     }
 
     @Test
     void testGetAuthNeg() throws DataAccessException {
-        users.insert(new User("testUser", "password", "taco@tuesdays.com"));
+        users.insert(new User("beans", "potatoes", "tamales@quesadilla.imhungry"));
         var thisToken = generateAuthToken();
-        tokens.insert(new Authtoken(thisToken, "testUser"));
+        tokens.insert(new Authtoken(thisToken, "beans"));
 
         assertThrows(DataAccessException.class, () -> {
             tokens.read(generateAuthToken());
@@ -128,9 +128,9 @@ public class DbUnitTests {
 
     @Test
     void testDeleteAuthPos() throws DataAccessException {
-        users.insert(new User("testUser", "password", "taco@tuesdays.com"));
+        users.insert(new User("beans", "potatoes", "tamales@quesadilla.imhungry"));
         var thisToken = generateAuthToken();
-        tokens.insert(new Authtoken(thisToken, "testUser"));
+        tokens.insert(new Authtoken(thisToken, "beans"));
 
         assertEquals(1, users.size());
         assertEquals(1, tokens.size());
@@ -142,29 +142,29 @@ public class DbUnitTests {
 
     @Test
     void testDeleteAuthNeg() throws DataAccessException {
-        users.insert(new User("testUser", "password", "taco@tuesdays.com"));
-        users.insert(new User("testUser2", "password", "bacon@tuesdays.com"));
+        users.insert(new User("beans", "potatoes", "tamales@quesadilla.imhungry"));
+        users.insert(new User("beans2", "potatoes2", "tamales@quesadilla.imhungry2"));
 
         var thisToken = generateAuthToken();
         var thatToken = generateAuthToken();
-        tokens.insert(new Authtoken(thisToken, "testUser"));
-        tokens.insert(new Authtoken(thatToken, "testUser2"));
+        tokens.insert(new Authtoken(thisToken, "beans"));
+        tokens.insert(new Authtoken(thatToken, "beans2"));
 
         assertEquals(2, tokens.size());
 
         tokens.delete(thatToken);
 
         assertEquals(1, tokens.size());
-        assertEquals("testUser", tokens.read(thisToken).getUserName());
+        assertEquals("beans", tokens.read(thisToken).getUserName());
     }
 
     @Test
     void testClearUsers() throws DataAccessException {
         assertEquals(0, tokens.size());
 
-        users.insert(new User("testUser", "password", "taco@tuesdays.com"));
+        users.insert(new User("beans", "potatoes", "tamales@quesadilla.imhungry"));
         var thisToken = generateAuthToken();
-        tokens.insert(new Authtoken(thisToken, "testUser"));
+        tokens.insert(new Authtoken(thisToken, "beans"));
 
         assertEquals(1, tokens.size());
         tokens.clear();
@@ -176,7 +176,7 @@ public class DbUnitTests {
     void testClearGames() throws DataAccessException {
 
         assertEquals(0, games.size());
-        games.insert(new GameModel(7, null, null, "nameOfGame", new ChessGame()));
+        games.insert(new GameModel(7, null, null, "gameName", new ChessGame()));
         assertEquals(1, games.size());
         games.clear();
         assertEquals(0, games.size());
@@ -188,42 +188,42 @@ public class DbUnitTests {
 
         assertEquals(0, users.size());
         assertEquals(0, games.size());
-        users.insert(new User("testUser", "password", "taco@tuesdays.com"));
-        games.insert(new GameModel(7, null, null, "nameOfGame", new ChessGame()));
+        users.insert(new User("beans", "potatoes", "tamales@quesadilla.imhungry"));
+        games.insert(new GameModel(7, null, null, "gameName", new ChessGame()));
         assertEquals(1, users.size());
         assertEquals(1, games.size());
     }
 
     @Test
     void testCreateGameNeg() throws DataAccessException {
-        users.insert(new User("testUser", "password", "taco@tuesdays.com"));
-        games.insert(new GameModel(7, null, null, "nameOfGame", new ChessGame()));
+        users.insert(new User("beans", "potatoes", "tamales@quesadilla.imhungry"));
+        games.insert(new GameModel(7, null, null, "gameName", new ChessGame()));
         assertThrows(DataAccessException.class, () -> {
-            games.insert(new GameModel(7, null, null, "nameOfGame", new ChessGame()));
+            games.insert(new GameModel(7, null, null, "gameName", new ChessGame()));
         });
     }
 
     @Test
     void testGetGamePos() throws DataAccessException {
 
-        users.insert(new User("testUser", "password", "taco@tuesdays.com"));
-        games.insert(new GameModel(7, null, null, "nameOfGame", new ChessGame()));
-        assertEquals("nameOfGame", games.read(7).getGameName());
+        users.insert(new User("beans", "potatoes", "tamales@quesadilla.imhungry"));
+        games.insert(new GameModel(7, null, null, "gameName", new ChessGame()));
+        assertEquals("gameName", games.read(7).getGameName());
     }
 
     @Test
     void testGetGameNeg() throws DataAccessException {
 
-        users.insert(new User("testUser", "password", "taco@tuesdays.com"));
-        games.insert(new GameModel(7, null, null, "nameOfGame", new ChessGame()));
+        users.insert(new User("beans", "potatoes", "tamales@quesadilla.imhungry"));
+        games.insert(new GameModel(7, null, null, "gameName", new ChessGame()));
         assertThrows(DataAccessException.class, () -> {
-            games.insert(new GameModel(-1, null, null, "nameOfGame", new ChessGame()));
+            games.insert(new GameModel(-1, null, null, "gameName", new ChessGame()));
         });
     }
 
     @Test
     void testListGamePos() throws DataAccessException {
-        games.insert(new GameModel(7, null, null, "nameOfGame", new ChessGame()));
+        games.insert(new GameModel(7, null, null, "gameName", new ChessGame()));
         assertNotNull(games.getGameList());
     }
 
@@ -234,23 +234,23 @@ public class DbUnitTests {
 
     @Test
     void testUpdateGamePos() throws DataAccessException {
-        users.insert(new User("whiteJoinTest", "password", "taco@tuesdays.com"));
+        users.insert(new User("beans", "potatoes", "tamales@quesadilla.imhungry"));
         ChessGame game = new ChessGame();
-        games.insert(new GameModel(7, null, null, "nameOfGame", game));
+        games.insert(new GameModel(7, null, null, "gameName", game));
 
-        GameModel gameUpdate = new GameModel(7, "whiteJoinTest", null, "nameOfGame", game);
+        GameModel gameUpdate = new GameModel(7, "beans", null, "gameName", game);
         games.updateGame(7, gameUpdate);
 
-        assertEquals("whiteJoinTest", games.read(7).getWhiteUsername());
+        assertEquals("beans", games.read(7).getWhiteUsername());
     }
 
     @Test
     void testUpdateGameNeg() throws DataAccessException {
-        users.insert(new User("whiteJoinTest", "password", "taco@tuesdays.com"));
+        users.insert(new User("beans", "potatoes", "tamales@quesadilla.imhungry"));
         ChessGame game = new ChessGame();
-        games.insert(new GameModel(7, null, null, "nameOfGame", game));
+        games.insert(new GameModel(7, null, null, "gameName", game));
 
-        GameModel gameUpdate = new GameModel(7, "whiteJoinTest", null, "nameOfGame", game);
+        GameModel gameUpdate = new GameModel(7, "whiteJoinTest", null, "gameName", game);
         games.updateGame(5, gameUpdate);
 
         assertNotEquals("whiteJoinTest", games.read(7).getWhiteUsername());
