@@ -24,8 +24,11 @@ public class LogoutService {
      * @return A logoutResponse indicating the success of the logout operation.
      */
     public LogoutResponse logout(String authToken) {
-        System.out.println(authToken);
         try {
+            if (authDAO.read(authToken) == null) {
+                // If the auth token doesn't exist, return unauthorized response
+                return new LogoutResponse("Error: unauthorized");
+            }
             authDAO.delete(authToken);
             return new LogoutResponse(null);
         } catch (DataAccessException e) {

@@ -36,11 +36,11 @@ public class JoinGameService {
         // Read the game from the database
         GameModel gameToBeJoined = games.read(request.gameID());
         if (gameToBeJoined == null) {
-            throw new DataAccessException("Game not found");
+            throw new DataAccessException("bad request");
         }
 
         // Validate player color
-        if (!(request.playerColor().equals("WHITE") || request.playerColor().equals("BLACK"))) {
+        if (request.playerColor() == null || !(request.playerColor().equals("WHITE") || request.playerColor().equals("BLACK"))) {
             throw new DataAccessException("bad request");
         }
 

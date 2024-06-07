@@ -1,7 +1,7 @@
 package responses;
 
 public class CreateGameResponse {
-    private int gameID;
+    private Integer gameID;
     private String message;
 
     public CreateGameResponse(Integer gameID) {
@@ -11,10 +11,10 @@ public class CreateGameResponse {
 
     public CreateGameResponse(String message) {
         this.message = message;
-        this.gameID = -1;
+        this.gameID = null;
     }
 
-    public int getGameID() {
+    public Integer getGameID() {
         return gameID;
     }
 

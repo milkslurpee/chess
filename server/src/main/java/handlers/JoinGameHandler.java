@@ -1,8 +1,10 @@
 package handlers;
 
 import com.google.gson.Gson;
+import dataaccess.DataAccessException;
 import dataaccess.db.*;
 import requests.JoinGameRequest;
+import responses.CreateGameResponse;
 import responses.JoinGameResponse;
 import services.JoinGameService;
 import spark.Request;
@@ -49,4 +51,5 @@ public class JoinGameHandler {
             return gson.toJson(new JoinGameResponse("Error: " + e.getMessage()));
 
         }
-    }}
+    }
+}
