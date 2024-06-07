@@ -49,5 +49,6 @@ public interface AuthDAO {
      * @param authtoken The token to be checked.
      * @return true if the token is valid, false otherwise.
      */
-    boolean validToken(String authtoken) throws DataAccessException;
+
+
 }

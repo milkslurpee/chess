@@ -1,80 +1,76 @@
 package dataaccess.db;
 
 import chess.ChessGame;
+import dataaccess.AuthDAO;
 import dataaccess.DataAccessException;
-import dataaccess.UserDAO;
 import dataaccess.DatabaseManager;
-import models.User;
+import models.Authtoken;
 
 import java.sql.*;
 
-import static java.sql.Statement.RETURN_GENERATED_KEYS;
-import static java.sql.Types.NULL;
+public class DbAuthDAO implements AuthDAO {
 
-public class dbUserDAO implements UserDAO {
     int size = 0;
 
-    @Override
-    public void insert(User userInfo) throws DataAccessException {
 
-        var statement = "INSERT INTO users (username, password, email) VALUES (?, ?, ?)";
-        executeUpdate(statement, userInfo.getUsername(), userInfo.getPassword(), userInfo.getEmail());
-        size++;
+    @Override
+    public void insert (Authtoken authData) throws DataAccessException {
+        var statement = "INSERT INTO auth (authtoken, username) VALUES (?, ?)";
+        try(Connection connection = DatabaseManager.getConnection();
+            PreparedStatement stmt = connection.prepareStatement(statement)) {
+            stmt.setString(1, authData.getAuthToken());
+            stmt.setString(2, authData.getUserName());
+            stmt.executeUpdate();
+            size++;
+        } catch (SQLException e) {
+            throw new DataAccessException(e.getMessage());
+        }
+
+
     }
 
-    public void delete(String username) throws DataAccessException {
-        String checkUserExistsSql = "SELECT COUNT(*) FROM users WHERE username = ?";
-        String deleteUserSql = "DELETE FROM users WHERE username = ?";
-
-        try (Connection conn = DatabaseManager.getConnection()) {
-            // Check if the user exists
-            try (PreparedStatement checkStmt = conn.prepareStatement(checkUserExistsSql)) {
-                checkStmt.setString(1, username);
-                try (ResultSet rs = checkStmt.executeQuery()) {
-                    if (rs.next() && rs.getInt(1) == 0) {
-                        throw new DataAccessException("User doesn't exist");
-                    }
+    @Override
+    public Authtoken read(String authToken) throws DataAccessException {
+        var beansBaked = "SELECT authtoken, username FROM auth WHERE authtoken = ?";
+        try(Connection connection = DatabaseManager.getConnection();
+            PreparedStatement stmt = connection.prepareStatement(beansBaked)) {
+            stmt.setString(1, authToken);
+            var sqlLine = stmt.executeQuery();
+            if (sqlLine.next()) {
+                var token = sqlLine.getString(1);
+                var user = sqlLine.getString(2);
+                if (token == null || user == null) {
+                    throw new DataAccessException("unauthorized");
                 }
+                return new Authtoken(token, user);
+            }
+            else {
+                throw new DataAccessException("unauthorized");
             }
 
-            // Delete the user
-            try (PreparedStatement deleteStmt = conn.prepareStatement(deleteUserSql)) {
-                deleteStmt.setString(1, username);
-                deleteStmt.executeUpdate();
-            }
         } catch (SQLException e) {
             throw new DataAccessException(e.getMessage());
         }
     }
 
-
-
     @Override
-    public User read(String username) throws DataAccessException {
-        var beansBaked = "SELECT username, password, email FROM users WHERE username = ?";
-        try (Connection connection = DatabaseManager.getConnection();
-             PreparedStatement stmt = connection.prepareStatement(beansBaked)){
-            stmt.setString(1, username);
-            var sqlLine = stmt.executeQuery();
-            if (sqlLine.next()) {
-                var userName = sqlLine.getString(1);
-                var passwordOfUser = sqlLine.getString(2);
-                var emailOfUser = sqlLine.getString(3);
-                return new User(userName, passwordOfUser, emailOfUser);
-            }
-        }
-        catch (SQLException e) {
-            throw new DataAccessException(e.getMessage());
-        }
-        return null;
+    public void delete(String authToken) throws DataAccessException {
+        var statement = "DELETE FROM auth WHERE authToken = ?";
+        executeUpdate(statement, authToken);
+        size--;
+
     }
 
     @Override
     public void clear() throws DataAccessException {
-        var statement = "DELETE FROM users";
+        var statement = "DELETE FROM auth";
         executeUpdate(statement);
         size=0;
 
+    }
+
+    public int size() {
+        return size;
     }
 
     static int executeUpdate(String sql, Object... params) throws DataAccessException {
@@ -123,7 +119,5 @@ public class dbUserDAO implements UserDAO {
     }
 
 
-    public int size() {
-        return size;
-    }
+
 }

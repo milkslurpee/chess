@@ -7,14 +7,11 @@ import handlers.*;
 import services.*;
 import com.google.gson.Gson;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-
 public class Server {
 
-    dbAuthDAO authDAO = new dbAuthDAO();
-    dbUserDAO userDAO = new dbUserDAO();
-    dbGameDAO gameDAO = new dbGameDAO();
+    DbAuthDAO authDAO = new DbAuthDAO();
+    DbUserDAO userDAO = new DbUserDAO();
+    DbGameDAO gameDAO = new DbGameDAO();
 
 
     public int run(int desiredPort) {

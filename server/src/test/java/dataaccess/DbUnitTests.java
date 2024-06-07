@@ -1,9 +1,9 @@
 package dataaccess;
 
 import chess.ChessGame;
-import dataaccess.db.dbAuthDAO;
-import dataaccess.db.dbGameDAO;
-import dataaccess.db.dbUserDAO;
+import dataaccess.db.DbAuthDAO;
+import dataaccess.db.DbGameDAO;
+import dataaccess.db.DbUserDAO;
 import models.Authtoken;
 import models.GameModel;
 import models.User;
@@ -16,15 +16,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class DbUnitTests {
 
-    dbUserDAO users = new dbUserDAO();
-    dbAuthDAO tokens = new dbAuthDAO();
-    dbGameDAO games = new dbGameDAO();
+    DbUserDAO users = new DbUserDAO();
+    DbAuthDAO tokens = new DbAuthDAO();
+    DbGameDAO games = new DbGameDAO();
 
 
     @BeforeEach
     void setup() throws DataAccessException {
-        users =  new dbUserDAO();
-        tokens = new dbAuthDAO();
+        users =  new DbUserDAO();
+        tokens = new DbAuthDAO();
         tokens.clear();
         games.clear();
         users.clear();

@@ -1,12 +1,9 @@
 package services;
 
-import dataaccess.db.dbAuthDAO;
-import dataaccess.db.dbGameDAO;
-import dataaccess.db.dbUserDAO;
-import dataaccess.memory.MemoryAuthDAO;
+import dataaccess.db.DbAuthDAO;
+import dataaccess.db.DbGameDAO;
+import dataaccess.db.DbUserDAO;
 import dataaccess.DataAccessException;
-import dataaccess.memory.MemoryGameDAO;
-import dataaccess.memory.MemoryUserDAO;
 import models.Authtoken;
 import models.User;
 import org.mindrot.jbcrypt.BCrypt;
@@ -19,10 +16,10 @@ import java.util.UUID;
  * The LoginService class provides a service for user login.
  */
 public class LoginService {
-    dbAuthDAO authDAO;
-    dbUserDAO userDAO;
-    dbGameDAO gameDAO;
-    public LoginService(dbAuthDAO authDAO, dbUserDAO userDAO, dbGameDAO gameDAO) {
+    DbAuthDAO authDAO;
+    DbUserDAO userDAO;
+    DbGameDAO gameDAO;
+    public LoginService(DbAuthDAO authDAO, DbUserDAO userDAO, DbGameDAO gameDAO) {
         this.authDAO = authDAO;
         this.gameDAO = gameDAO;
         this.userDAO = userDAO;

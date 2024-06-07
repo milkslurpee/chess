@@ -1,19 +1,16 @@
 package services;
-import dataaccess.db.dbAuthDAO;
-import dataaccess.db.dbGameDAO;
-import dataaccess.db.dbUserDAO;
-import dataaccess.memory.MemoryAuthDAO;
+import dataaccess.db.DbAuthDAO;
+import dataaccess.db.DbUserDAO;
 import dataaccess.DataAccessException;
-import dataaccess.memory.MemoryUserDAO;
 import responses.LogoutResponse;
 
 /**
  * The LogoutService class provides a service for user logout.
  */
 public class LogoutService {
-    dbAuthDAO authDAO;
-    dbUserDAO userDAO;
-    public LogoutService(dbAuthDAO authDAO, dbUserDAO userDAO) {
+    DbAuthDAO authDAO;
+    DbUserDAO userDAO;
+    public LogoutService(DbAuthDAO authDAO, DbUserDAO userDAO) {
         this.authDAO = authDAO;
         this.userDAO = userDAO;
     }

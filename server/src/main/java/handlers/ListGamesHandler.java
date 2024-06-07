@@ -8,15 +8,13 @@ import services.ListGameService;
 import spark.Request;
 import spark.Response;
 
-import javax.xml.crypto.Data;
-
 public class ListGamesHandler {
     private final ListGameService listGameService;
     private final Gson gson;
-    private final dbAuthDAO authDAO;
-    private final dbGameDAO gameDAO;// Add AuthDAO to check token validity
+    private final DbAuthDAO authDAO;
+    private final DbGameDAO gameDAO;// Add AuthDAO to check token validity
 
-    public ListGamesHandler(ListGameService listGameService, Gson gson, dbAuthDAO authDAO, dbGameDAO gameDAO) {
+    public ListGamesHandler(ListGameService listGameService, Gson gson, DbAuthDAO authDAO, DbGameDAO gameDAO) {
         this.listGameService = listGameService;
         this.gson = gson;
         this.authDAO = authDAO; // Initialize AuthDAO

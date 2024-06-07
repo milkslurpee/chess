@@ -6,15 +6,13 @@ import models.Authtoken;
 import models.GameModel;
 import requests.JoinGameRequest;
 
-import java.util.Objects;
-
 /**
  * The JoinGameService class provides a service for joining an existing game.
  */
 public class JoinGameService {
-    dbAuthDAO authDAO;
-    dbUserDAO userDAO;
-    dbGameDAO gameDAO;
+    DbAuthDAO authDAO;
+    DbUserDAO userDAO;
+    DbGameDAO gameDAO;
     GameModel gameToBeJoined;
 
 
@@ -24,7 +22,7 @@ public class JoinGameService {
      * @param request The request containing details for joining the game.
      * @return A joinGameResponse indicating the success of the joining operation.
      */
-    public void join(dbGameDAO games, dbAuthDAO authTokens, String authToken, JoinGameRequest request) throws DataAccessException {
+    public void join(DbGameDAO games, DbAuthDAO authTokens, String authToken, JoinGameRequest request) throws DataAccessException {
         if (request.gameID() == -1) {
             throw new DataAccessException("bad request");
         }

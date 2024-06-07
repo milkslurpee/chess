@@ -1,10 +1,8 @@
 package handlers;
 
 import com.google.gson.Gson;
-import dataaccess.DataAccessException;
 import dataaccess.db.*;
 import requests.JoinGameRequest;
-import responses.CreateGameResponse;
 import responses.JoinGameResponse;
 import services.JoinGameService;
 import spark.Request;
@@ -12,13 +10,13 @@ import spark.Response;
 
 public class JoinGameHandler {
 
-    dbUserDAO usersDAO;
-    dbAuthDAO authDAO;
-    dbGameDAO gameDAO;
+    DbUserDAO usersDAO;
+    DbAuthDAO authDAO;
+    DbGameDAO gameDAO;
     JoinGameService playerJoin = new JoinGameService();
     Gson gson = new Gson();
 
-    public JoinGameHandler(dbUserDAO users, dbAuthDAO authTokens, dbGameDAO games) {
+    public JoinGameHandler(DbUserDAO users, DbAuthDAO authTokens, DbGameDAO games) {
         this.usersDAO = users;
         this.authDAO = authTokens;
         this.gameDAO = games;

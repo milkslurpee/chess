@@ -2,12 +2,9 @@ package services;
 
 import chess.ChessGame;
 import dataaccess.*;
-import dataaccess.db.dbAuthDAO;
-import dataaccess.db.dbGameDAO;
-import dataaccess.db.dbUserDAO;
-import dataaccess.memory.MemoryAuthDAO;
-import dataaccess.memory.MemoryGameDAO;
-import dataaccess.memory.MemoryUserDAO;
+import dataaccess.db.DbAuthDAO;
+import dataaccess.db.DbGameDAO;
+import dataaccess.db.DbUserDAO;
 import models.GameModel;
 import requests.CreateGameRequest;
 import responses.CreateGameResponse;
@@ -17,10 +14,10 @@ import responses.CreateGameResponse;
  */
 
 public class CreateGameService {
-    dbAuthDAO authDAO;
-    dbUserDAO userDAO;
-    dbGameDAO gameDAO;
-    public CreateGameService(dbAuthDAO authDAO, dbUserDAO userDAO, dbGameDAO gameDAO) {
+    DbAuthDAO authDAO;
+    DbUserDAO userDAO;
+    DbGameDAO gameDAO;
+    public CreateGameService(DbAuthDAO authDAO, DbUserDAO userDAO, DbGameDAO gameDAO) {
         this.authDAO = authDAO;
         this.gameDAO = gameDAO;
         this.userDAO = userDAO;

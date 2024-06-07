@@ -10,8 +10,8 @@ import java.util.List;
  * The ListGameService class creates a service for listing all the games.
  */
 public class ListGameService {
-    dbGameDAO gameDAO;
-    public ListGameService(dbGameDAO gameDAO) {
+    DbGameDAO gameDAO;
+    public ListGameService(DbGameDAO gameDAO) {
         this.gameDAO = gameDAO;
     }
 

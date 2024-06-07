@@ -11,10 +11,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.sql.Statement.RETURN_GENERATED_KEYS;
-import static java.sql.Types.NULL;
-
-public class dbGameDAO implements GameDAO {
+public class DbGameDAO implements GameDAO {
 
     int size = 0;
 
