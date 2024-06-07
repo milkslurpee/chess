@@ -8,7 +8,7 @@ import models.Authtoken;
 
 import java.sql.*;
 
-public class DbAuthDAO implements AuthDAO {
+public class DbAuthDAO extends baseDAO implements AuthDAO {
 
     int size = 0;
 

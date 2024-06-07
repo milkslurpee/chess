@@ -11,7 +11,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DbGameDAO implements GameDAO {
+public class DbGameDAO extends baseDAO implements GameDAO {
 
     int size = 0;
 

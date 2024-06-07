@@ -20,31 +20,7 @@ public class ListGamesHandler {
         this.authDAO = authDAO; // Initialize AuthDAO
         this.gameDAO = gameDAO;
     }
-//
-//    public Object handleList(Request request, Response response) throws DataAccessException {
-//
-//        try {
-//            String token = request.headers("authorization");
-//
-//            authDAO.read(token);
-//            ListResponse newResp = listGameService.list();
-//            response.status(200);
-//            return gson.toJson(newResp);
-//        }
-//        catch (Exception e) {
-//            if (!(e.getMessage().equals("unauthorized"))) {
-//                response.status(500);
-//            }
-//            else {
-//                response.status(401);
-//            }
-//            return gson.toJson(new ListResponse("Error: description", null));
-//        }
-//
-//
-//    }
-//
-//
+
 
     public String handleList(Request request, Response response) throws DataAccessException {
         response.type("application/json");

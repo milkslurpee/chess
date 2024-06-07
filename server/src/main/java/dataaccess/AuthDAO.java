@@ -41,7 +41,6 @@ public interface AuthDAO {
      * @param token The token to be verified.
      * @throws DataAccessException If there is an issue accessing the data.
      */
-//    void verifyAuth(String token) throws DataAccessException;
 
     /**
      * Checks if the given token is valid.
