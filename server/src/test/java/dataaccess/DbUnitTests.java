@@ -1,7 +1,6 @@
-package databasetests;
+package dataaccess;
 
 import chess.ChessGame;
-import dataaccess.DataAccessException;
 import dataaccess.db.dbAuthDAO;
 import dataaccess.db.dbGameDAO;
 import dataaccess.db.dbUserDAO;
