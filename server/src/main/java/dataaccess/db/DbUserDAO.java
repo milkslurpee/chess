@@ -1,6 +1,5 @@
 package dataaccess.db;
 
-import chess.ChessGame;
 import dataaccess.DataAccessException;
 import dataaccess.UserDAO;
 import dataaccess.DatabaseManager;
@@ -8,7 +7,7 @@ import models.User;
 
 import java.sql.*;
 
-public class DbUserDAO extends baseDAO implements UserDAO {
+public class DbUserDAO extends BaseDAO implements UserDAO {
     int size = 0;
 
     @Override

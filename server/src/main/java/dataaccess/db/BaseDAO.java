@@ -6,7 +6,7 @@ import dataaccess.DatabaseManager;
 
 import java.sql.*;
 
-public class baseDAO {
+public class BaseDAO {
 
     static int executeUpdate(String sql, Object... params) throws DataAccessException {
         try (Connection conn = DatabaseManager.getConnection();
