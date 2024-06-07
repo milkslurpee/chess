@@ -50,7 +50,7 @@ public class RegisterService {
         }
         String hashedPassword = BCrypt.hashpw(request.getPassword(), BCrypt.gensalt());
         // Create a new user and save to the database
-        User newUser = new User(username, password, email);
+        User newUser = new User(username, hashedPassword, email);
         try {
             userDAO.insert(newUser);
         } catch (DataAccessException e) {
