@@ -1,6 +1,6 @@
-package server;
+package facade;
 
-public class Server {
+public class ServerFacade {
     public Object run(int i) {
         return null;
     }
