@@ -18,11 +18,8 @@ public class ClientCommunicator {
 
     String urlString;
 
-    public ClientCommunicator(String url) {
-        this.urlString = url;
-    }
 
-    public RegisterResponse register(RegisterRequest request) throws IOException{
+    public RegisterResponse register(RegisterRequest request) throws Exception{
 
         URL url = new URL(urlString + "/user");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -68,9 +65,18 @@ public class ClientCommunicator {
 
                 return new RegisterResponse(username, authToken, message);
             }
+        } else if(connection.getResponseCode() == 400){
+            // Bad Request Error
+            throw new Exception("There was a bad request. Make sure there are no empty fields.");
+        } else if(connection.getResponseCode() == 403){
+            // Already Taken Error
+            throw new Exception("That username is already taken.");
+        } else if(connection.getResponseCode() == 500){
+            // Data Access Exception
+            throw new Exception("There was a problem with the server.");
         } else {
-            // SERVER RETURNED AN HTTP ERROR
-            throw new IOException("Server returned non-OK status: " + connection.getResponseCode());
+            // Shouldn't reach here ...
+            throw new Exception("Unknown Error");
         }
 
     }

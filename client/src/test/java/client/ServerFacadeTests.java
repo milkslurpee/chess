@@ -1,7 +1,7 @@
 package client;
 
+import facade.ServerFacade;
 import org.junit.jupiter.api.*;
-import facade.ClientCommunicator;
 import requests.*;
 import responses.*;
 import server.Server;
@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ServerFacadeTests {
 
     private static Server server;
-    static ClientCommunicator facade;
+    static ServerFacade facade;
     String existingAuth;
 
     @BeforeAll
@@ -22,15 +22,15 @@ public class ServerFacadeTests {
         server = new Server();
         var port = server.run(0);
         System.out.println("Started test HTTP server on " + port);
-        facade = new ClientCommunicator("http://localhost:" + port);
+        facade = new ServerFacade("http://localhost:" + port);
     }
 
     @BeforeEach
-    public void setup() throws IOException {
+    public void setup() throws Exception {
         // facade.clearServer(); //need to clear the database between each test
 
         //one user already logged in
-        RegisterResponse userResponse = facade.register(new RegisterRequest("user", "pass", "email"));
+        RegisterResponse userResponse = facade.registerUser(new RegisterRequest("user", "pass", "email"));
         existingAuth = userResponse.getAuthToken();
     }
 
@@ -38,9 +38,9 @@ public class ServerFacadeTests {
     @DisplayName("Register Works")
     public void registerWorks() throws Exception {
 
-        RegisterResponse regResp = facade.register(new RegisterRequest("user1", "pass", "email"));
+        RegisterResponse regResp = facade.registerUser(new RegisterRequest("user1", "pass", "email"));
         String auth1 = regResp.getAuthToken();
-        assertTrue(auth1.length() > 10, "Auth token should be longer than 10 characters");
+        assertTrue(auth1.length() > 10, "Authtoken must be longer than 10 characters");
         assertEquals("user1", regResp.getUsername(), "Should return the same username");
         Assertions.assertNotEquals(existingAuth, auth1, "Auth tokens should be different");
     }

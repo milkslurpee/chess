@@ -12,7 +12,7 @@ public class ServerFacade {
 
     public ServerFacade(String url){
         urlString = url;
-        com = new ClientCommunicator(urlString);
+        com = new ClientCommunicator();
     }
 
     public RegisterResponse registerUser(RegisterRequest req){
