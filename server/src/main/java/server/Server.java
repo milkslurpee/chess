@@ -19,7 +19,7 @@ public class Server {
         try {
             DatabaseManager.createDatabase();
         }catch (DataAccessException e) {
-            System.err.println("YOU FAILED, COMMIT SEPPUKU" + e.getMessage());
+            System.err.println("Failed to initialie database: " + e.getMessage());
         }
 
         Spark.port(desiredPort);

@@ -1,8 +1,7 @@
 package client;
 
-import chess.ChessGame;
 import org.junit.jupiter.api.*;
-import facade.ServerFacade;
+import facade.ClientCommunicator;
 import requests.*;
 import responses.*;
 import server.Server;
@@ -15,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ServerFacadeTests {
 
     private static Server server;
-    static ServerFacade facade;
+    static ClientCommunicator facade;
     String existingAuth;
 
     @BeforeAll
@@ -23,7 +22,7 @@ public class ServerFacadeTests {
         server = new Server();
         var port = server.run(0);
         System.out.println("Started test HTTP server on " + port);
-        facade = new ServerFacade("http://localhost:" + port);
+        facade = new ClientCommunicator("http://localhost:" + port);
     }
 
     @BeforeEach

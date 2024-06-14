@@ -1,4 +1,6 @@
 import chess.*;
+import dataaccess.DataAccessException;
+import dataaccess.DatabaseManager;
 import server.Server;
 import spark.Spark;
 
@@ -8,6 +10,5 @@ public class Main {
         System.out.println("♕ 240 Chess Server: " + piece);
         Server server = new Server();
         server.run(8080);
-
     }
 }

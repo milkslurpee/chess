@@ -1,8 +1,8 @@
 package ui;
 
 import facade.ServerFacade;
-import requests.RegisterRequest;
-import responses.RegisterResponse;
+import requests.*;
+import responses.*;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -15,7 +15,7 @@ public class ClientUi {
 
     public ClientUi() {facade = new ServerFacade("http://localhost:8080");}
 
-    public void runMenus() throws IOException {
+    public void startMenu(){
 
         Scanner scanner = new Scanner(System.in);
         // start a while loop
@@ -148,7 +148,7 @@ public class ClientUi {
         String email = scanner.nextLine();
 
         RegisterRequest req = new RegisterRequest(username, password, email);
-        RegisterResponse res = facade.register(req);
+        RegisterResponse res = facade.registerUser(req);
 
         if(res == null){
             System.out.println("Wasn't able to register a new user, please try again.");
