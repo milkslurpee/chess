@@ -6,7 +6,6 @@ import requests.*;
 import responses.*;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class Menu {
