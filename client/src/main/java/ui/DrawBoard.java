@@ -11,52 +11,36 @@ public class DrawBoard {
 
   private final static String EMPTY = " ";
   private ArrayList<ArrayList<String>> board = new ArrayList<>(8);
-  // I think I could also have it pass in a ChessBoard or ChessGame???
-  // chess game AND which perspective
 
-  // Pass in a new ChessGame(ChessGame, teamColor - enum)
-  // do this in phase 6
-
-  public DrawBoard(ArrayList<ArrayList<String>> board){ // with parameters, pass in the 2D array, do this more later??
-    this.board = board;
-    draw();
-  }
 
   public DrawBoard(){ // no parameters, set squares equal to a default board
     setDefaultBoard();
-    draw();
   }
 
-  private void draw(){
+
+  public void drawWhitePerspective(){
     var out = new PrintStream(System.out, true, StandardCharsets.UTF_8);
-//    out.print(ERASE_SCREEN);
-    out.print(SET_BG_COLOR_BLACK);
-    out.print(SET_TEXT_COLOR_LIGHT_GREY);
-
-    drawWhitePerspective(out);
-
-    out.print(SET_TEXT_COLOR_LIGHT_GREY);
-    drawBlackPerspective(out);
-
-    out.print(SET_TEXT_COLOR_RESET_WHITE);
-    out.print(SET_BG_COLOR_RESET_GREY);
-  }
-
-  private void drawWhitePerspective(PrintStream out){
+    out.print(SET_BG_COLOR_TAN);
+    out.print(SET_TEXT_COLOR_BLACK);
     out.println("          WHITE PERSPECTIVE");
     drawHeaders(out);
     drawChessBoard(out);
     drawHeaders(out);
-    out.print(SET_BG_COLOR_BLACK);
     out.println();
+    out.print(SET_TEXT_COLOR_RESET_WHITE);
+    out.print(SET_BG_COLOR_RESET_GREY);
   }
-  private void drawBlackPerspective(PrintStream out){
+  public void drawBlackPerspective(){
+    var out = new PrintStream(System.out, true, StandardCharsets.UTF_8);
+    out.print(SET_BG_COLOR_TAN);
+    out.print(SET_TEXT_COLOR_BLACK);
     out.println("          BLACK PERSPECTIVE");
     drawHeadersBack(out);
     drawChessBoardBack(out);
     drawHeadersBack(out);
-    out.print(SET_BG_COLOR_BLACK);
     out.println();
+    out.print(SET_TEXT_COLOR_RESET_WHITE);
+    out.print(SET_BG_COLOR_RESET_GREY);
   }
 
   private void drawHeaders(PrintStream out) {
@@ -70,7 +54,7 @@ public class DrawBoard {
         out.print(EMPTY.repeat(2));
       }
     }
-    out.print(RESET_BG_COLOR);
+    out.print(SET_BG_COLOR_TAN);
     out.println();
   }
   private void drawHeadersBack(PrintStream out) {
@@ -84,7 +68,7 @@ public class DrawBoard {
         out.print(EMPTY.repeat(2));
       }
     }
-    out.print(RESET_BG_COLOR);
+    out.print(SET_BG_COLOR_TAN);
     out.println();
   }
 
@@ -174,9 +158,9 @@ public class DrawBoard {
   private void printSquare(PrintStream out, String squareColor, String pieceType, String pieceColor){
 
     if(squareColor.equalsIgnoreCase("WHITE")){
-      out.print(SET_BG_COLOR_LIGHT);
+      out.print(SET_BG_COLOR_WHITE);
     } else if(squareColor.equalsIgnoreCase("BLACK")) {
-      out.print(SET_BG_COLOR_DARK);
+      out.print(SET_BG_COLOR_TAN);
     }
 
     if(pieceType != null && pieceColor != null){
@@ -196,12 +180,12 @@ public class DrawBoard {
     }
   }
   private static void printOneBlackSquare(PrintStream out){
-    out.print(SET_BG_COLOR_BLACK);
+    out.print(SET_BG_COLOR_TAN);
     out.print("   ");
   }
 
   private static void setBlack(PrintStream out) {
-    out.print(SET_BG_COLOR_BLACK);
+    out.print(SET_BG_COLOR_TAN);
     out.print(SET_TEXT_COLOR_BLACK);
   }
   private static void setGrey(PrintStream out) {

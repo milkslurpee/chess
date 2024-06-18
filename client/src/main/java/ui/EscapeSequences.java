@@ -66,10 +66,6 @@ public class EscapeSequences {
         return UNICODE_ESCAPE + "[48;2;" + r + ";" + g + ";" + b + "m";
     }
 
-    // Define background colors using RGB values
-    public static final String SET_BG_COLOR_DARK = setBackgroundColor(111, 143, 114);
-    public static final String SET_BG_COLOR_LIGHT = setBackgroundColor(173, 189, 143);
-
 
     public static final String WHITE_KING = " K ";
     public static final String WHITE_QUEEN = " Q ";

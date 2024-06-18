@@ -20,7 +20,7 @@ public class Menu {
   // Track the current user details
   private String loggedInUsername;
   private String currentAuthToken;
-
+  DrawBoard board = new DrawBoard();
   private HashMap<Integer, GameModel> gamesMap;
 
   public Menu(){
@@ -34,10 +34,6 @@ public class Menu {
         firstMenu(scanner);
       } else {
         secondMenu(scanner);
-        if(inPlayMode){
-          DrawBoard board = new DrawBoard();
-          inPlayMode = false;
-        }
       }
     }
     scanner.close();
@@ -205,7 +201,9 @@ public class Menu {
     boolean joinedGame = facade.joinGame(new JoinGameRequest(playerColor, gamesMap.get(gameToJoin).getGameID()), currentAuthToken);
     if(joinedGame){
       System.out.println("Successfully joined " + gamesMap.get(gameToJoin).getGameName() + " as " + playerColor);
-      inPlayMode = true;
+      if(playerColor.equals("BLACK"))
+        board.drawBlackPerspective();
+      else board.drawWhitePerspective();
     } else {
       System.out.println("Unable to join the game, please try again.");
     }
@@ -224,7 +222,8 @@ public class Menu {
       try {
         gameToJoin = Integer.parseInt(input);
         if (gamesMap.containsKey(gameToJoin)) {
-          inPlayMode = true;
+          board.drawWhitePerspective();
+          board.drawBlackPerspective();
           break;
         } else {
           System.out.println("Invalid game number. Please try again.");
