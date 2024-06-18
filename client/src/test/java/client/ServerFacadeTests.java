@@ -29,7 +29,6 @@ public class ServerFacadeTests {
     public void setup() {
         facade.clearServer(); //need to clear the database between each test
 
-        //one user already logged in
         RegisterResponse userResponse = facade.registerUser(new RegisterRequest("user", "pass", "email"));
         existingAuth = userResponse.getAuthToken();
     }

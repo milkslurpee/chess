@@ -13,7 +13,7 @@ public class DrawBoard {
   private ArrayList<ArrayList<String>> board = new ArrayList<>(8);
 
 
-  public DrawBoard(){ // no parameters, set squares equal to a default board
+  public DrawBoard(){
     setDefaultBoard();
   }
 
@@ -90,7 +90,6 @@ public class DrawBoard {
     setGrey(out);
     out.print(EMPTY + displayedRow + EMPTY);
 
-    // print the squares in between
     for(int i = 0; i < 8; i++){
       String piece = board.get(row).get(i);
       String pieceColor = null;
@@ -113,7 +112,6 @@ public class DrawBoard {
 
     }
 
-    // print last grey block with row number:
     setGrey(out);
     out.print(EMPTY + displayedRow + EMPTY);
     setBlack(out);
@@ -148,7 +146,7 @@ public class DrawBoard {
 
     }
 
-    // print last grey block with row number:
+
     setGrey(out);
     out.print(EMPTY + displayedRow + EMPTY);
     setBlack(out);
