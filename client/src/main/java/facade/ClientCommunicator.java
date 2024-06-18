@@ -8,14 +8,15 @@ import responses.*;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URI;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 
 public class ClientCommunicator {
 
   public RegisterResponse postRegister(String urlString, RegisterRequest req) throws Exception{
-    URI uri = new URI(urlString + "/user");
-    HttpURLConnection connection = (HttpURLConnection) uri.toURL().openConnection();
+    URL url = new URL(urlString + "/user");
+    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
     connection.setReadTimeout(5000);
     connection.setRequestMethod("POST");
     connection.setDoOutput(true);

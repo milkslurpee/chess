@@ -124,10 +124,8 @@ public class Menu {
       listCurrentGames();
     } else if (input.equals("3")) {
       joinGame(scanner);
-      inPlayMode = true;
     } else if (input.equals("4")) {
       observeGame(scanner);
-      inPlayMode = true;
     } else if (input.equals("5")) {
       if (facade.logoutUser(currentAuthToken)) {
         System.out.println("Logged out user: " + loggedInUsername);
