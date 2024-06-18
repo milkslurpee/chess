@@ -62,11 +62,6 @@ public class EscapeSequences {
     public static final String SET_BG_COLOR_TAN = SET_BG_COLOR + "180m";
     public static final String SET_BG_COLOR_LIGHT_GREEN = SET_BG_COLOR + "120m";
 
-    private static String setBackgroundColor(int r, int g, int b) {
-        return UNICODE_ESCAPE + "[48;2;" + r + ";" + g + ";" + b + "m";
-    }
-
-
     public static final String WHITE_KING = " K ";
     public static final String WHITE_QUEEN = " Q ";
     public static final String WHITE_BISHOP = " B ";
